@@ -54,7 +54,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public Rotation2d getHeading2d() {
-    return new Rotation2d(Math.toRadians(navX.getAngle()));
+    return Rotation2d.fromDegrees(navX.getAngle());
   }
 
   /**
@@ -88,5 +88,13 @@ public class Drivetrain extends SubsystemBase {
     } else {
       driveController.driveCartesian(xSpeed, ySpeed, zRotation);
     }
+  }
+
+  public void stopMotors() {
+    driveController.stopMotor();
+  }
+
+  public void rotateToAngle(double angle) {
+    driveController.drivePolar(0.0, getHeading2d(), angle);
   }
 }
