@@ -20,7 +20,11 @@ public final class Constants {
   public static final boolean DRIVE_FRONT_RIGHT_INVERTED = true;
   public static final boolean DRIVE_REAR_LEFT_INVERTED = false;
   public static final boolean DRIVE_REAR_RIGHT_INVERTED = true;
-  public static final double DRIVE_ROTATION_DEADBAND = 2.0;
+  public static final double  DRIVE_ROTATION_PID_DEADBAND = 2.0;
+  public static final double  DRIVE_RATE_LIMIT = 2;
+  public static final double  DRIVE_X_DEADBAND = 0.01;
+  public static final double  DRIVE_Y_DEADBAND = 0.01;
+  public static final double  DRIVE_ROTATION_DEADBAND = 0.01;
 
   public static final Port SENSOR_NAVX_PORT = Port.kMXP;
 
