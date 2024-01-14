@@ -35,6 +35,16 @@ public class PID {
   }
 
   /**
+   * Ana PID hesaplama fonksiyonu
+   * 
+   * @param input  sensörler tarafından ölçülen şu anki değer
+   * @return Hesaplanmış PID hata değeri
+   */
+  public double calculate(double input) {
+    return PID.calculate(input);
+  }
+
+  /**
    * 
    * @param error PID.calculate() fonsiyonundan döndürülen değer
    * @return motora gidecek değer
