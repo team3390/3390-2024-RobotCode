@@ -15,16 +15,16 @@ public class RobotContainer {
 
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  private final Joystick leftStick = new Joystick(Constants.JOYSTICK_LEFT_PORT);
-  private final Joystick rightStick = new Joystick(Constants.JOYSTICK_RIGHT_PORT);
-  // private final Joystick gamepad = new Joystick(Constants.JOYSTICK_GAMEPAD_PORT);
+  // private final Joystick leftStick = new Joystick(Constants.JOYSTICK_LEFT_PORT);
+  // private final Joystick rightStick = new Joystick(Constants.JOYSTICK_RIGHT_PORT);
+  private final Joystick gamepad = new Joystick(Constants.JOYSTICK_GAMEPAD_PORT);
 
   public RobotContainer() {
     drivetrain.setDefaultCommand(new FieldOrientedDrive(
       drivetrain, 
-      () -> rightStick.getX(),
-      () -> rightStick.getY(),
-      () -> leftStick.getX()
+      () -> (-gamepad.getRawAxis(1) / 3) * 2,
+      () -> (gamepad.getRawAxis(2) / 3) * 2,
+      () -> (gamepad.getRawAxis(0) / 3)
     ));
   }
 

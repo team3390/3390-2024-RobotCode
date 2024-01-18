@@ -14,10 +14,10 @@ public final class Constants {
   public static final int JOYSTICK_RIGHT_PORT = 1;
   public static final int JOYSTICK_GAMEPAD_PORT = 4;
 
-  public static final int     DRIVE_FRONT_LEFT_ID = 0;
-  public static final int     DRIVE_FRONT_RIGHT_ID = 1;
-  public static final int     DRIVE_REAR_LEFT_ID = 2;
-  public static final int     DRIVE_REAR_RIGHT_ID = 3;
+  public static final int     DRIVE_FRONT_LEFT_ID = 15;
+  public static final int     DRIVE_FRONT_RIGHT_ID = 0;
+  public static final int     DRIVE_REAR_LEFT_ID = 14;
+  public static final int     DRIVE_REAR_RIGHT_ID = 1;
   public static final boolean DRIVE_FRONT_LEFT_INVERTED = false;
   public static final boolean DRIVE_FRONT_RIGHT_INVERTED = true;
   public static final boolean DRIVE_REAR_LEFT_INVERTED = false;
