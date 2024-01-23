@@ -1,7 +1,5 @@
 package com.team3390.robot;
 
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C.Port;
 
@@ -22,21 +20,27 @@ public final class Constants {
   public static final boolean DRIVE_FRONT_RIGHT_INVERTED = true;
   public static final boolean DRIVE_REAR_LEFT_INVERTED = false;
   public static final boolean DRIVE_REAR_RIGHT_INVERTED = true;
-  public static final double  DRIVE_ROTATION_PID_DEADBAND = 2.0;
-  public static final double  DRIVE_RATE_LIMIT = 2;
+  public static final double  DRIVE_RATE_LIMIT = 2.5;
+  public static final double  DRIVE_RATE_X_LIMIT = 4;
   public static final double  DRIVE_X_DEADBAND = 0.01;
   public static final double  DRIVE_Y_DEADBAND = 0.01;
   public static final double  DRIVE_ROTATION_DEADBAND = 0.01;
+  public static final double  DRIVE_ROTATION_PID_P = 0.01;
+  public static final double  DRIVE_ROTATION_PID_I = 0;
+  public static final double  DRIVE_ROTATION_PID_D = 0.00007;
+  public static final double  DRIVE_ROTATION_PID_TOLERANCE = 0.5;
+  public static final double  DRIVE_ROTATION_PID_MAX_OUT = 0.5;
+  public static final double  DRIVE_ROTATION_PID_MIN_OUT = -0.5;
 
-  public static final int       INTAKE_PIVOT_MOTOR_ID = 4;
-  public static final MotorType INTAKE_PIVOT_MOTOR_TYPE = MotorType.kBrushless;
-  public static final double    INTAKE_PIVOT_MOTOR_RATIO = 1 / 2;
-  public static final double    INTAKE_PIVOT_PID_P = 0.12;
-  public static final double    INTAKE_PIVOT_PID_I = 0.0;
-  public static final double    INTAKE_PIVOT_PID_D = 0.001;
-  public static final double    INTAKE_PIVOT_PID_TOLERANCE = 1;
-  public static final double    INTAKE_PIVOT_PID_MAX_OUT = 0.6;
-  public static final double    INTAKE_PIVOT_PID_MIN_OUT = INTAKE_PIVOT_PID_MAX_OUT * -1;
+  public static final int    INTAKE_PIVOT_MOTOR_ID = 4;
+  public static final double INTAKE_PIVOT_MOTOR_RATIO = 1 / 2;
+  public static final double INTAKE_PIVOT_PID_P = 0.12;
+  public static final double INTAKE_PIVOT_PID_I = 0.0;
+  public static final double INTAKE_PIVOT_PID_D = 0.001;
+  public static final double INTAKE_PIVOT_PID_TOLERANCE = 1;
+  public static final double INTAKE_PIVOT_PID_MAX_OUT = 0.6;
+  public static final double INTAKE_PIVOT_PID_MIN_OUT = INTAKE_PIVOT_PID_MAX_OUT * -1;
+  public static final int    INTAKE_SWITCH_ID = 0;
   public static enum  INTAKE_POSITIONS {
     ELEVATOR(0.0),
     HUMAN_PLAYER(45.0),

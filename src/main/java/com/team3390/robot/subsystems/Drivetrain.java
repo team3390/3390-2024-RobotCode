@@ -9,13 +9,14 @@ import com.team3390.robot.Constants;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
 
   private static Drivetrain instance;
 
-  private boolean isBreakMode = false;
+  private boolean isBreakMode = true;
 
   private final Configuration talonConfiguration = new Configuration();
   private final LazyTalonSRX frontLeft, frontRight, rearLeft, rearRight;
@@ -47,7 +48,9 @@ public class Drivetrain extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    SmartDashboard.putNumber("Heading", getHeading());
+  }
 
   public double getHeading() {
     return navX.getAngle();
@@ -55,6 +58,10 @@ public class Drivetrain extends SubsystemBase {
 
   public Rotation2d getHeading2d() {
     return Rotation2d.fromDegrees(navX.getAngle());
+  }
+
+  public void resetGyro() {
+    navX.reset();
   }
 
   /**

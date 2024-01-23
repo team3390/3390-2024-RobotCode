@@ -8,19 +8,22 @@ import com.team3390.robot.subsystems.Drivetrain;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class FieldOrientedDrive extends Command {
+public class MecanumDrive extends Command {
 
   private final Drivetrain drivetrain;
   private final DoubleSupplier xSpeed, ySpeed, zRotation;
+  private final boolean fod;
 
   private final SlewRateLimiter xLimiter, yLimiter, rotationLimiter;
 
-  public FieldOrientedDrive(Drivetrain drivetrain, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zRotation) {
+  // DÜZ: x | YATAY: y | DÖNÜŞ: z
+  public MecanumDrive(Drivetrain drivetrain, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zRotation, boolean fod) {
     this.xSpeed = xSpeed;
     this.ySpeed = ySpeed;
     this.zRotation = zRotation;
+    this.fod = fod;
     this.drivetrain = drivetrain;
-    this.xLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_LIMIT);
+    this.xLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_X_LIMIT);
     this.yLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_LIMIT);
     this.rotationLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_LIMIT);
     addRequirements(drivetrain);
@@ -43,7 +46,7 @@ public class FieldOrientedDrive extends Command {
     y = yLimiter.calculate(y);
     rot = rotationLimiter.calculate(rot);
 
-    drivetrain.driveCartesian(x, y, rot, true);
+    drivetrain.driveCartesian(x, y, rot, fod);
   }
 
   @Override
