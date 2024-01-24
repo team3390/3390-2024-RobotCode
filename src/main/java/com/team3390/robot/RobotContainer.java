@@ -33,6 +33,10 @@ public class RobotContainer {
     new Trigger(() -> gamepad.getRawButton(1)).whileTrue(new RotateToAngle(drivetrain, 90));
   }
 
+  public void updateVars() {
+    
+  }
+
   public Command getAutonomousCommand() {
     return new Red_3NoteAuto(drivetrain);
   }
