@@ -9,7 +9,6 @@ import com.team3390.robot.Constants;
 import com.team3390.robot.utility.CompetitionShuffleboard;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -79,6 +78,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void setIntakeAngle(Constants.INTAKE_POSITIONS pos) {
     pivotPID.setSetpoint(pos.angle);
+  }
+
+  public boolean isIntakeAtSetpoint() {
+    return pivotPID.atSetpoint();
   }
 
   public void resetPivotEncoder() {}

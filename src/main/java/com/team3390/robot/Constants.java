@@ -34,10 +34,10 @@ public final class Constants {
 
   public static final int    INTAKE_PIVOT_MOTOR_ID = 4;
   public static final double INTAKE_PIVOT_MOTOR_RATIO = 1 / 2;
-  public static final double INTAKE_PIVOT_PID_P = 0.12;
+  public static final double INTAKE_PIVOT_PID_P = 0.0;
   public static final double INTAKE_PIVOT_PID_I = 0.0;
-  public static final double INTAKE_PIVOT_PID_D = 0.001;
-  public static final double INTAKE_PIVOT_PID_TOLERANCE = 1;
+  public static final double INTAKE_PIVOT_PID_D = 0.0;
+  public static final double INTAKE_PIVOT_PID_TOLERANCE = 0;
   public static final double INTAKE_PIVOT_PID_MAX_OUT = 1;
   public static final double INTAKE_PIVOT_PID_MIN_OUT = INTAKE_PIVOT_PID_MAX_OUT * -1;
   public static final int    INTAKE_SWITCH_ID = 0;
@@ -52,6 +52,9 @@ public final class Constants {
       this.angle = angle;
     }
   }
+
+  public static final int ELEVATOR_MOTOR_MASTER_ID = 6;
+  public static final int ELEVATOR_MOTOR_SLAVE_ID = 7;
 
   public static final Port SENSOR_NAVX_PORT = Port.kMXP;
 
