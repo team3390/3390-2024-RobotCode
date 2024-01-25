@@ -30,11 +30,11 @@ public class RobotContainer {
       false
     ));
 
-    new Trigger(() -> gamepad.getRawButton(1)).whileTrue(new RotateToAngle(drivetrain, 90));
+    new Trigger(() -> gamepad.getRawButton(1)).whileTrue(new RotateToAngle(drivetrain, -90));
   }
 
   public void updateVars() {
-    
+
   }
 
   public Command getAutonomousCommand() {

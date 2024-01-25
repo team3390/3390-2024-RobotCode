@@ -38,9 +38,10 @@ public final class Constants {
   public static final double INTAKE_PIVOT_PID_I = 0.0;
   public static final double INTAKE_PIVOT_PID_D = 0.001;
   public static final double INTAKE_PIVOT_PID_TOLERANCE = 1;
-  public static final double INTAKE_PIVOT_PID_MAX_OUT = 0.6;
+  public static final double INTAKE_PIVOT_PID_MAX_OUT = 1;
   public static final double INTAKE_PIVOT_PID_MIN_OUT = INTAKE_PIVOT_PID_MAX_OUT * -1;
   public static final int    INTAKE_SWITCH_ID = 0;
+  public static final int    INTAKE_HAND_MOTOR_ID = 5;
   public static enum  INTAKE_POSITIONS {
     ELEVATOR(0.0),
     HUMAN_PLAYER(45.0),
