@@ -15,6 +15,10 @@ public class CompetitionShuffleboard {
   // Intake
   public final GenericEntry hasNoteEntry;
 
+  // Limelight
+  public final GenericEntry limelightXAtSetpointEntry;
+  public final GenericEntry limelightYAtSetpointEntry;
+
   public static synchronized CompetitionShuffleboard getInstance() {
     if (instance == null) {
       instance = new CompetitionShuffleboard();
@@ -29,6 +33,9 @@ public class CompetitionShuffleboard {
     }
 
     hasNoteEntry = tab.add("Intake Has Note", false).getEntry();
+
+    limelightXAtSetpointEntry = tab.add("LM X At Setpoint", false).getEntry();
+    limelightYAtSetpointEntry = tab.add("LM Y At Setpoint", false).getEntry();
   }
 
 }

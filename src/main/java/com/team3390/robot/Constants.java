@@ -56,6 +56,14 @@ public final class Constants {
   public static final int ELEVATOR_MOTOR_MASTER_ID = 6;
   public static final int ELEVATOR_MOTOR_SLAVE_ID = 7;
 
+  public static final double LIMELIGHT_SHOOTER_SPEED_COEFFICIENT = 2.0;
+  public static enum LIMELIGHT_LIGHT_MODE {
+    PIPELINE_VALUE, OFF, BLINK, ON
+  }
+  public static enum LIMELIGHT_CAMERA_MODE {
+    VISION, DRIVE
+  }
+
   public static final Port SENSOR_NAVX_PORT = Port.kMXP;
 
 }

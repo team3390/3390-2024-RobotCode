@@ -31,4 +31,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {}
+
+  public void setSpeed(double speed) {
+    master.set(speed);
+  }
+
+  public void stopMotors() {
+    master.stopMotor();
+    slave.stopMotor();
+  }
 }
