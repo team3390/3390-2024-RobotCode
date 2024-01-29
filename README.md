@@ -5,3 +5,5 @@ Anatolian Eaglebots's Code for the 2024 season
 ## 2024 Season Programmers
 
 - Can OKAN
+- Deniz ONDES
+- Doruk KARAKOC
