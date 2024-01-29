@@ -8,6 +8,10 @@ import com.team3390.robot.commands.auto.Red_3NoteAuto;
 import com.team3390.robot.commands.drive.MecanumDrive;
 import com.team3390.robot.commands.drive.RotateToAngle;
 import com.team3390.robot.subsystems.Drivetrain;
+import com.team3390.robot.subsystems.ElevatorSubsystem;
+import com.team3390.robot.commands.elevator.ElevatorUp;
+import com.team3390.robot.commands.elevator.ElevatorDown;
+
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   private final Drivetrain drivetrain = Drivetrain.getInstance();
+  private final ElevatorSubsystem elevator = ElevatorSubsystem.getInstance();
   
   private final Joystick gamepad = new Joystick(Constants.JOYSTICK_GAMEPAD_PORT);
 
@@ -29,6 +34,8 @@ public class RobotContainer {
     ));
 
     new Trigger(() -> gamepad.getRawButton(1)).whileTrue(new RotateToAngle(drivetrain, -90));
+    new Trigger(() -> gamepad.getRawButton(2)).whileTrue(new ElevatorDown(elevator));
+    new Trigger(() -> gamepad.getRawButton(4)).whileTrue(new ElevatorUp(elevator));
   }
 
   public void updateVars() {

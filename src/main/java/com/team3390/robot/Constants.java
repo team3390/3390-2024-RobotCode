@@ -12,10 +12,10 @@ public final class Constants {
   public static final int JOYSTICK_RIGHT_PORT = 1;
   public static final int JOYSTICK_GAMEPAD_PORT = 4;
 
-  public static final int     DRIVE_FRONT_LEFT_ID = 15;
-  public static final int     DRIVE_FRONT_RIGHT_ID = 0;
-  public static final int     DRIVE_REAR_LEFT_ID = 14;
-  public static final int     DRIVE_REAR_RIGHT_ID = 1;
+  public static final int     DRIVE_FRONT_LEFT_ID = 2;
+  public static final int     DRIVE_FRONT_RIGHT_ID = 15;
+  public static final int     DRIVE_REAR_LEFT_ID = 1;
+  public static final int     DRIVE_REAR_RIGHT_ID = 14;
   public static final boolean DRIVE_FRONT_LEFT_INVERTED = false;
   public static final boolean DRIVE_FRONT_RIGHT_INVERTED = true;
   public static final boolean DRIVE_REAR_LEFT_INVERTED = false;
@@ -53,8 +53,8 @@ public final class Constants {
     }
   }
 
-  public static final int ELEVATOR_MOTOR_MASTER_ID = 6;
-  public static final int ELEVATOR_MOTOR_SLAVE_ID = 7;
+  public static final int ELEVATOR_MOTOR_MASTER_ID = 12;
+  public static final int ELEVATOR_MOTOR_SLAVE_ID = 13;
 
   public static final double LIMELIGHT_SHOOTER_SPEED_COEFFICIENT = 2.0;
   public static enum LIMELIGHT_LIGHT_MODE {
