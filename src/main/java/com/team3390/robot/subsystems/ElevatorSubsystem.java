@@ -16,6 +16,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final Configuration talonConfig = new Configuration();
   private final boolean isBreakMode = true;
 
+  private final DigitalInput downSwitch;
+
   public synchronized static ElevatorSubsystem getInstance() {
     if (instance == null) {
       instance = new ElevatorSubsystem();
@@ -27,10 +29,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     talonConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     master = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_MASTER_ID, talonConfig);
     slave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.ELEVATOR_MOTOR_SLAVE_ID, Constants.ELEVATOR_MOTOR_MASTER_ID, talonConfig);
+    downSwitch = new DigitalInput(Constants.ELEVATOR_DOWN_SWITCH_ID);
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    
+  }
 
   public void setSpeed(double speed) {
     master.set(speed);
@@ -39,5 +44,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void stopMotors() {
     master.stopMotor();
     slave.stopMotor();
+  }
+
+  public void ElevatorAtBottom(){
+
   }
 }

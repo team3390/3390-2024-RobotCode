@@ -45,7 +45,7 @@ public class LimelightSubsystem extends SubsystemBase {
     tL = networkTable.getEntry("tl");
 
     xPID = new PID(0.01, 0, 0.00007, 0.05, 0.35, -0.35);
-    yPID = new PID(0.05, 0, 0.00007, 0, 1, -1);
+    yPID = new PID(0.05, 0, 0.00007, 0, 0.75, -0.75);
   }
 
   @Override
