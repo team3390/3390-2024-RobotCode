@@ -95,7 +95,7 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotorMaster.stopMotor();
   }
 
-  public void setTrigerMotor(double speed) {
+  public void feedTorus(double speed) {
     trigerMotor.set(speed);
   }
 

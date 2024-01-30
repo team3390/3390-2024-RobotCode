@@ -7,8 +7,8 @@ package com.team3390.robot.commands.shooter;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -20,11 +20,13 @@ public class ShootSpeaker extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelCommandGroup(
-        new InstantCommand(()->{
-          shooterSubsystem.setShooterMotor(1);
-        })
-      )
+      new InstantCommand(() -> {
+        shooterSubsystem.setShooterMotor(1);
+      }),
+      new WaitCommand(1),
+      new InstantCommand(() -> {
+        shooterSubsystem.feedTorus(0.5);
+      })
     );
   }
 }
