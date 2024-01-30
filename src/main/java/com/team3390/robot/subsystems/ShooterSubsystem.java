@@ -20,7 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private final CompetitionShuffleboard shuffleboard = CompetitionShuffleboard.getInstance();
 
   private final Configuration motorConfig = new Configuration();
-  private final LazyTalonSRX pivotMotorMaster, pivotMotorSlave, trigerMotorMaster, trigerMotorSlave, shooterMotor;
+  private final LazyTalonSRX pivotMotorMaster, pivotMotorSlave, shooterMotorMaster, shooterMotorSlave, trigerMotor;
   private final boolean isBreakMode = true;
 
   private final PID pivotPID = new PID(
@@ -45,9 +45,9 @@ public class ShooterSubsystem extends SubsystemBase {
     motorConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     pivotMotorMaster = TalonSRXCreator.createTalon(Constants.SHOOTER_PIVOT_MOTOR_MASTER_ID, motorConfig);
     pivotMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_PIVOT_MOTOR_SLAVE_ID, Constants.SHOOTER_PIVOT_MOTOR_MASTER_ID, motorConfig);
-    trigerMotorMaster = TalonSRXCreator.createTalon(Constants.SHOOTER_TRIGER_MOTOR_MASTER_ID, motorConfig);
-    trigerMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_TRIGER_MOTOR_SLAVE_ID, Constants.SHOOTER_TRIGER_MOTOR_MASTER_ID, motorConfig);
-    shooterMotor = TalonSRXCreator.createTalon(Constants.SHOOTER_SHOT_MOTOR_ID, motorConfig);
+    shooterMotorMaster = TalonSRXCreator.createTalon(Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
+    shooterMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_SHOT_MOTOR_SLAVE_ID, Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
+    trigerMotor = TalonSRXCreator.createTalon(Constants.SHOOTER_TRIGER_MOTOR_ID, motorConfig);
 
     pivotPID.setSetpoint(0);
   }
@@ -87,19 +87,19 @@ public class ShooterSubsystem extends SubsystemBase {
     return isPIDActive;
   }
 
-  public void setTrigerMotor(double speed) {
-    trigerMotorMaster.set(speed);
-  }
-
-  public void stopTrigerMotor() {
-    trigerMotorMaster.stopMotor();
-  }
-
   public void setShooterMotor(double speed) {
-    shooterMotor.set(speed);
+    shooterMotorMaster.set(speed);
   }
 
   public void stopShooterMotor() {
-    shooterMotor.stopMotor();
+    shooterMotorMaster.stopMotor();
+  }
+
+  public void setTrigerMotor(double speed) {
+    trigerMotor.set(speed);
+  }
+
+  public void stopTrigerMotor() {
+    trigerMotor.stopMotor();
   }
 }

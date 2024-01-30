@@ -59,9 +59,9 @@ public final class Constants {
 
   public static final int    SHOOTER_PIVOT_MOTOR_MASTER_ID = 6;
   public static final int    SHOOTER_PIVOT_MOTOR_SLAVE_ID = 7;
-  public static final int    SHOOTER_TRIGER_MOTOR_MASTER_ID = 8;
-  public static final int    SHOOTER_TRIGER_MOTOR_SLAVE_ID = 9;
-  public static final int    SHOOTER_SHOT_MOTOR_ID = 10;
+  public static final int    SHOOTER_SHOT_MOTOR_MASTER_ID = 8;
+  public static final int    SHOOTER_SHOT_MOTOR_SLAVE_ID = 9;
+  public static final int    SHOOTER_TRIGER_MOTOR_ID = 10;
   public static final double SHOOTER_PIVOT_PID_P = 0.0;
   public static final double SHOOTER_PIVOT_PID_I = 0.0;
   public static final double SHOOTER_PIVOT_PID_D = 0.0;
