@@ -18,7 +18,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final Configuration talonConfig = new Configuration();
   private final boolean isBreakMode = true;
 
-  private final DigitalInput downSwitch;
+  private final DigitalInput downSwitch, upSwitch;
 
   public synchronized static ElevatorSubsystem getInstance() {
     if (instance == null) {
@@ -34,6 +34,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     slave = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_SLAVE_ID, talonConfig);
 
     downSwitch = new DigitalInput(Constants.ELEVATOR_DOWN_SWITCH_ID);
+    upSwitch = new DigitalInput(Constants.ELEVATOR_UP_SWITCH_ID);
   }
 
   @Override
@@ -53,5 +54,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public boolean IsElevatorDown(){
     return downSwitch.get() == false;
+  }
+  public boolean IsElevatorUp(){
+    return upSwitch.get() == false;
   }
 }

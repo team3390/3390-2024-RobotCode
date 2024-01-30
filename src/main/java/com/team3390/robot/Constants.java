@@ -56,6 +56,7 @@ public final class Constants {
   public static final int ELEVATOR_MOTOR_MASTER_ID = 12;
   public static final int ELEVATOR_MOTOR_SLAVE_ID = 13;
   public  static final int ELEVATOR_DOWN_SWITCH_ID = 1;
+  public static final int ELEVATOR_UP_SWITCH_ID = 7;
 
   public static final int    SHOOTER_PIVOT_MOTOR_MASTER_ID = 6;
   public static final int    SHOOTER_PIVOT_MOTOR_SLAVE_ID = 7;
@@ -68,6 +69,7 @@ public final class Constants {
   public static final double SHOOTER_PIVOT_PID_TOLERANCE = 0;
   public static final double SHOOTER_PIVOT_PID_MAX_OUT = 1;
   public static final double SHOOTER_PIVOT_PID_MIN_OUT = INTAKE_PIVOT_PID_MAX_OUT * -1;
+  public static final int    SHOOTER_SWITCH_ID = 15;
   public static enum  SHOOTER_POSITIONS {
     INTAKE(0.0),
     SPEAKER(60.0),

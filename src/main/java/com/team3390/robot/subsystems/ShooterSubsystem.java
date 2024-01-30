@@ -12,6 +12,7 @@ import com.team3390.lib.math.PID;
 import com.team3390.robot.Constants;
 import com.team3390.robot.utility.CompetitionShuffleboard;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -33,6 +34,8 @@ public class ShooterSubsystem extends SubsystemBase {
   );
   private boolean isPIDActive = true;
 
+  private final DigitalInput shooterSwitch;
+
   public synchronized static ShooterSubsystem getInstance() {
     if (instance == null) {
       instance = new ShooterSubsystem();
@@ -50,6 +53,8 @@ public class ShooterSubsystem extends SubsystemBase {
     trigerMotor = TalonSRXCreator.createTalon(Constants.SHOOTER_TRIGER_MOTOR_ID, motorConfig);
 
     pivotPID.setSetpoint(0);
+
+    shooterSwitch = new DigitalInput(Constants.SHOOTER_SWITCH_ID);
   }
 
   @Override
@@ -101,5 +106,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stopTrigerMotor() {
     trigerMotor.stopMotor();
+  }
+
+  public boolean reloaded(){
+    return shooterSwitch.get() == false;
   }
 }
