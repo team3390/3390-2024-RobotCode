@@ -6,6 +6,8 @@ import com.team3390.lib.drivers.TalonSRXCreator;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
 import com.team3390.robot.Constants;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -27,18 +29,21 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem() {
     talonConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
+    talonConfig.INVERTED = true;
     master = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_MASTER_ID, talonConfig);
-    slave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.ELEVATOR_MOTOR_SLAVE_ID, Constants.ELEVATOR_MOTOR_MASTER_ID, talonConfig);
+    slave = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_SLAVE_ID, talonConfig);
+
     downSwitch = new DigitalInput(Constants.ELEVATOR_DOWN_SWITCH_ID);
   }
 
   @Override
   public void periodic() {
-    
+    SmartDashboard.putBoolean("ElevatorDownSwitch", downSwitch.get());
   }
 
   public void setSpeed(double speed) {
     master.set(speed);
+    slave.set(speed);
   }
 
   public void stopMotors() {
@@ -46,7 +51,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     slave.stopMotor();
   }
 
-  public void ElevatorAtBottom(){
-
+  public boolean IsElevatorDown(){
+    return downSwitch.get() == false;
   }
 }

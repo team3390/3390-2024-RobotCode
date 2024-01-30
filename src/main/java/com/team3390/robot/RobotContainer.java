@@ -34,8 +34,8 @@ public class RobotContainer {
     ));
 
     new Trigger(() -> gamepad.getRawButton(1)).whileTrue(new RotateToAngle(drivetrain, -90));
-    new Trigger(() -> gamepad.getRawButton(4)).whileTrue(new ElevatorDown(elevator));
-    new Trigger(() -> gamepad.getRawButton(2)).whileTrue(new ElevatorUp(elevator));
+    new Trigger(() -> gamepad.getRawButton(2)).whileTrue(new ElevatorDown(elevator));
+    new Trigger(() -> gamepad.getRawButton(4)).whileTrue(new ElevatorUp(elevator));
   }
 
   public void updateVars() {
