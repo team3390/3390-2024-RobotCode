@@ -4,6 +4,7 @@
 
 package com.team3390.robot.commands.shooter;
 
+import com.team3390.robot.subsystems.LimelightSubsystem;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -15,11 +16,14 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootSpeaker extends SequentialCommandGroup {
   /** Creates a new ShootSpeaker. */
-  public ShootSpeaker(ShooterSubsystem shooterSubsystem) {
+  public ShootSpeaker(ShooterSubsystem shooterSubsystem, LimelightSubsystem limelightSubsystem) {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new InstantCommand(() -> {
+        new SetShooterAngle(shooterSubsystem, limelightSubsystem);
+      }),
       new InstantCommand(() -> {
         shooterSubsystem.setShooterMotor(1);
       }),

@@ -20,11 +20,11 @@ public class ShootAMP extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(() -> {
-        shooterSubsystem.setShooterMotor(1);
+        shooterSubsystem.setShooterMotor(0.2);
       }),
       new WaitCommand(1),
       new InstantCommand(() ->{
-        shooterSubsystem.feedTorus(0.5);
+        shooterSubsystem.feedTorus(0.2);
       })
     );
   }

@@ -10,7 +10,6 @@ import com.team3390.lib.drivers.TalonSRXCreator;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
 import com.team3390.lib.math.PID;
 import com.team3390.robot.Constants;
-import com.team3390.robot.utility.CompetitionShuffleboard;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShooterSubsystem extends SubsystemBase {
 
   private static ShooterSubsystem instance;
-  private final CompetitionShuffleboard shuffleboard = CompetitionShuffleboard.getInstance();
 
   private final Configuration motorConfig = new Configuration();
   private final LazyTalonSRX pivotMotorMaster, pivotMotorSlave, shooterMotorMaster, shooterMotorSlave, trigerMotor;
