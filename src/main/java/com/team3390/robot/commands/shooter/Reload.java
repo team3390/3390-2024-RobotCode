@@ -4,7 +4,9 @@
 
 package com.team3390.robot.commands.shooter;
 
-import com.team3390.robot.subsystems.LimelightSubsystem;
+import com.team3390.robot.Constants.SHOOTER_POSITIONS;
+import com.team3390.robot.subsystems.ElevatorSubsystem;
+import com.team3390.robot.subsystems.IntakeSubsystem;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -14,20 +16,19 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShootSpeaker extends SequentialCommandGroup {
-  /** Creates a new ShootSpeaker. */
-  public ShootSpeaker(ShooterSubsystem shooterSubsystem, LimelightSubsystem limelightSubsystem) {
-
+public class Reload extends SequentialCommandGroup {
+  /** Creates a new Reload. */
+  public Reload(ShooterSubsystem shooterSubsystem, ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetShooterAngle(shooterSubsystem, limelightSubsystem),
+      new SetToIntake(shooterSubsystem, elevatorSubsystem, SHOOTER_POSITIONS.INTAKE),
       new InstantCommand(() -> {
-        shooterSubsystem.setShooterMotor(1);
+        shooterSubsystem.feedTorus(0.6);
       }),
       new WaitCommand(1),
       new InstantCommand(() -> {
-        shooterSubsystem.feedTorus(0.5);
+        intakeSubsystem.setIntakeMotor(-0.75);
       })
     );
   }

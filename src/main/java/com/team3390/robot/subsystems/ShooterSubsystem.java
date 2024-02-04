@@ -45,9 +45,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     motorConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     pivotMotorMaster = TalonSRXCreator.createTalon(Constants.SHOOTER_PIVOT_MOTOR_MASTER_ID, motorConfig);
-    pivotMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_PIVOT_MOTOR_SLAVE_ID, Constants.SHOOTER_PIVOT_MOTOR_MASTER_ID, motorConfig);
+    pivotMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_PIVOT_MOTOR_SLAVE_ID,
+    Constants.SHOOTER_PIVOT_MOTOR_MASTER_ID, motorConfig);
     shooterMotorMaster = TalonSRXCreator.createTalon(Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
-    shooterMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_SHOT_MOTOR_SLAVE_ID, Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
+    shooterMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_SHOT_MOTOR_SLAVE_ID,
+    Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
     trigerMotor = TalonSRXCreator.createTalon(Constants.SHOOTER_TRIGER_MOTOR_ID, motorConfig);
 
     pivotPID.setSetpoint(0);

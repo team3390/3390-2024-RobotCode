@@ -7,11 +7,13 @@ package com.team3390.robot;
 import com.team3390.robot.commands.auto.Red_3NoteAuto;
 import com.team3390.robot.commands.drive.MecanumDrive;
 import com.team3390.robot.commands.drive.RotateToAngle;
+import com.team3390.robot.commands.elevator.ElevatorDown;
+import com.team3390.robot.commands.elevator.ElevatorUp;
 import com.team3390.robot.subsystems.Drivetrain;
 import com.team3390.robot.subsystems.ElevatorSubsystem;
-import com.team3390.robot.commands.elevator.ElevatorUp;
-import com.team3390.robot.commands.elevator.ElevatorDown;
-
+import com.team3390.robot.subsystems.IntakeSubsystem;
+import com.team3390.robot.subsystems.LimelightSubsystem;
+import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,6 +23,9 @@ public class RobotContainer {
 
   private final Drivetrain drivetrain = Drivetrain.getInstance();
   private final ElevatorSubsystem elevator = ElevatorSubsystem.getInstance();
+  private final LimelightSubsystem limelight = LimelightSubsystem.getInstance();
+  private final ShooterSubsystem shooter = ShooterSubsystem.getInstance();
+  private final IntakeSubsystem intake = IntakeSubsystem.getInstance();
   
   private final Joystick gamepad = new Joystick(Constants.JOYSTICK_GAMEPAD_PORT);
 
@@ -43,6 +48,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new Red_3NoteAuto(drivetrain);
+    return new Red_3NoteAuto(drivetrain,limelight,shooter,intake,elevator);
   }
 }
