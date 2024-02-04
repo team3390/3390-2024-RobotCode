@@ -38,7 +38,7 @@ public class AutonomeReload extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.stopTrigerMotor();
+    shooterSubsystem.stopFeederMotor();
     elevatorSubsystem.stopMotors();
     intakeSubsystem.stopIntakeMotor();
   }

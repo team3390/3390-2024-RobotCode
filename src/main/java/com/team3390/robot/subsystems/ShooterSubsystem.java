@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package com.team3390.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -19,7 +15,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private static ShooterSubsystem instance;
 
   private final Configuration motorConfig = new Configuration();
-  private final LazyTalonSRX pivotMotorMaster, pivotMotorSlave, shooterMotorMaster, shooterMotorSlave, trigerMotor;
+  private final LazyTalonSRX pivotMotorMaster, pivotMotorSlave, shooterMotorMaster, shooterMotorSlave, feederMotor;
   private final boolean isBreakMode = true;
 
   private final PID pivotPID = new PID(
@@ -41,7 +37,6 @@ public class ShooterSubsystem extends SubsystemBase {
     return instance;
   }
 
-  /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
     motorConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     pivotMotorMaster = TalonSRXCreator.createTalon(Constants.SHOOTER_PIVOT_MOTOR_MASTER_ID, motorConfig);
@@ -50,7 +45,7 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotorMaster = TalonSRXCreator.createTalon(Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
     shooterMotorSlave = TalonSRXCreator.createCustomPermanentSlaveTalon(Constants.SHOOTER_SHOT_MOTOR_SLAVE_ID,
     Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
-    trigerMotor = TalonSRXCreator.createTalon(Constants.SHOOTER_TRIGER_MOTOR_ID, motorConfig);
+    feederMotor = TalonSRXCreator.createTalon(Constants.SHOOTER_FEEDER_MOTOR_ID, motorConfig);
 
     pivotPID.setSetpoint(0);
 
@@ -58,9 +53,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  public void periodic() {}
 
   public void setShooterAngle(Constants.SHOOTER_POSITIONS pos) {
     pivotPID.setSetpoint(pos.angle);
@@ -101,11 +94,11 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void feedTorus(double speed) {
-    trigerMotor.set(speed);
+    feederMotor.set(speed);
   }
 
-  public void stopTrigerMotor() {
-    trigerMotor.stopMotor();
+  public void stopFeederMotor() {
+    feederMotor.stopMotor();
   }
 
   public boolean reloaded(){

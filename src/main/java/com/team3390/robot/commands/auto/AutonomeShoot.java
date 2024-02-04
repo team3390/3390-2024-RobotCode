@@ -37,7 +37,7 @@ public class AutonomeShoot extends Command {
   public void end(boolean interrupted) {
     shooterSubsystem.stopPivotMotor();
     shooterSubsystem.stopShooterMotor();
-    shooterSubsystem.stopTrigerMotor();
+    shooterSubsystem.stopFeederMotor();
   }
 
   // Returns true when the command should end.
