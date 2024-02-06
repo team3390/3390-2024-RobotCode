@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.I2C.Port;
 public final class Constants {
   
   public static final boolean ROBOT_FIELD_MODE = DriverStation.isFMSAttached();
+  public static final boolean ROBOT_ENABLED = DriverStation.isEnabled();
   public static final boolean TUNING_MODE = true;
 
   public static final int JOYSTICK_LEFT_PORT = 0;
