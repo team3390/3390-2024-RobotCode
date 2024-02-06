@@ -4,7 +4,7 @@
 
 package com.team3390.robot.commands.shooter;
 
-import com.team3390.robot.subsystems.LimelightSubsystem;
+import com.team3390.robot.Constants.SHOOTER_POSITIONS;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -12,34 +12,50 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class SetShooterAngle extends Command {
 
   private final ShooterSubsystem shooterSubsystem;
-  private final LimelightSubsystem limelightSubsystem;
+
+  private double k = 0;
 
   /** Creates a new SetShooterAngle. */
-  public SetShooterAngle(ShooterSubsystem shooterSubsystem, LimelightSubsystem limelightSubsystem){
+  public SetShooterAngle(ShooterSubsystem shooterSubsystem, SHOOTER_POSITIONS pos){
     this.shooterSubsystem = shooterSubsystem;
-    this.limelightSubsystem = limelightSubsystem;
-    addRequirements(shooterSubsystem, limelightSubsystem);
+
+    switch (pos) {
+      case INTAKE:
+        k = -1;
+        break;
+    
+      case AMP:
+        k = 1;
+        break;
+
+      default:
+        break;
+    }
+
+    addRequirements(shooterSubsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.setPivotMotor(limelightSubsystem.getCalculatedShooterSpeed());
+    shooterSubsystem.setPivotMotor(k * 0.7);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     shooterSubsystem.stopPivotMotor();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return limelightSubsystem.isYAtSetpoint();
+    if (k < 0) {
+      return shooterSubsystem.isBackPressing();
+    } else if (k > 0) {
+      return shooterSubsystem.isFrontPressing();
+    } else {
+      return shooterSubsystem.isBackPressing() || shooterSubsystem.isFrontPressing();
+    }
   }
 }

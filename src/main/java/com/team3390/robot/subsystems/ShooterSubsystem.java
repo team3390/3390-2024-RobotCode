@@ -28,7 +28,7 @@ public class ShooterSubsystem extends SubsystemBase {
   );
   private boolean isPIDActive = true;
 
-  private final DigitalInput shooterSwitch;
+  private final DigitalInput hasNoteSwitch, shooterBackSwitch, shooterFrontSwitch;
 
   public synchronized static ShooterSubsystem getInstance() {
     if (instance == null) {
@@ -49,24 +49,24 @@ public class ShooterSubsystem extends SubsystemBase {
 
     pivotPID.setSetpoint(0);
 
-    shooterSwitch = new DigitalInput(Constants.SHOOTER_SWITCH_ID);
+    hasNoteSwitch = new DigitalInput(Constants.SHOOTER_SWITCH_ID);
+    shooterBackSwitch = new DigitalInput(8);
+    shooterFrontSwitch = new DigitalInput(9);
   }
 
   @Override
   public void periodic() {}
 
-  public void setShooterAngle(Constants.SHOOTER_POSITIONS pos) {
-    pivotPID.setSetpoint(pos.angle);
+  public void setShooterAngle(double setpoint) {
+    pivotPID.setSetpoint(setpoint);
   }
 
   public boolean isShooterAtSetpoint() {
     return pivotPID.atSetpoint();
   }
 
-  public void resetShooterEncoder() {}
-
-  public double getShooterAngle() {
-    return 0.0;
+  public void setIsPivotPIDActive(boolean isActive) {
+    isPIDActive = isActive;
   }
 
   public void setPivotMotor(double speed) {
@@ -77,9 +77,6 @@ public class ShooterSubsystem extends SubsystemBase {
     pivotMotorMaster.stopMotor();
   }
 
-  public void setIsPivotPIDActive(boolean isActive) {
-    isPIDActive = isActive;
-  }
 
   public boolean getIsPivotPIDActive() {
     return isPIDActive;
@@ -101,7 +98,15 @@ public class ShooterSubsystem extends SubsystemBase {
     feederMotor.stopMotor();
   }
 
-  public boolean reloaded(){
-    return shooterSwitch.get() == false;
+  public boolean isBackPressing() {
+    return shooterBackSwitch.get();
+  }
+
+  public boolean isFrontPressing() {
+    return shooterFrontSwitch.get();
+  }
+
+  public boolean hasNote() {
+    return !hasNoteSwitch.get();
   }
 }

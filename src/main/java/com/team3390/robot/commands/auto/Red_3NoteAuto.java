@@ -33,7 +33,6 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
           false
         )
       ),
-      new AutonomeShoot(shooterSubsystem, limelightSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
       new ParallelDeadlineGroup(
         new WaitCommand(1.75),
@@ -57,8 +56,6 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
           false
         )
       ),
-      new AutonomeReload(shooterSubsystem, elevatorSubsystem, intakeSubsystem),
-      new AutonomeShoot(shooterSubsystem, limelightSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
       new ParallelDeadlineGroup(
         new WaitCommand(1.25),
@@ -81,9 +78,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
           () -> 0.0,
           false
         )
-      ),
-      new AutonomeReload(shooterSubsystem, elevatorSubsystem, intakeSubsystem),
-      new AutonomeShoot(shooterSubsystem, limelightSubsystem)
+      )
     );
   }
 }
