@@ -1,5 +1,6 @@
 package com.team3390.robot.commands.drive;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.team3390.robot.Constants;
@@ -13,11 +14,12 @@ public class MecanumDrive extends Command {
   private final Drivetrain drivetrain;
   private final DoubleSupplier xSpeed, ySpeed, zRotation;
   private final boolean fod;
+  private final BooleanSupplier isShooterActive;
 
   private final SlewRateLimiter xLimiter, yLimiter, rotationLimiter;
 
   // DÜZ: x | YATAY: y | DÖNÜŞ: z
-  public MecanumDrive(Drivetrain drivetrain, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zRotation, boolean fod) {
+  public MecanumDrive(Drivetrain drivetrain, BooleanSupplier isShooterActive, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zRotation, boolean fod) {
     this.xSpeed = xSpeed;
     this.ySpeed = ySpeed;
     this.zRotation = zRotation;
@@ -26,6 +28,7 @@ public class MecanumDrive extends Command {
     this.xLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_X_LIMIT);
     this.yLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_LIMIT);
     this.rotationLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_LIMIT);
+    this.isShooterActive = isShooterActive;
     addRequirements(drivetrain);
   }
 
@@ -46,6 +49,12 @@ public class MecanumDrive extends Command {
     y = yLimiter.calculate(y);
     rot = rotationLimiter.calculate(rot);
 
+    if(isShooterActive.getAsBoolean()){
+      x = x/2;
+      y = y/2;
+      rot = rot/2;
+    }
+    
     drivetrain.driveCartesian(x, y, rot, fod);
   }
 

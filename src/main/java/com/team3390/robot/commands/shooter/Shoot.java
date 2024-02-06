@@ -19,6 +19,7 @@ public class Shoot extends Command {
   @Override
   public void initialize() {
     timestamp = Timer.getFPGATimestamp();
+    shooterSubsystem.setShooterActive(true);
   }
 
   @Override
@@ -40,6 +41,7 @@ public class Shoot extends Command {
   public void end(boolean interrupted) {
     shooterSubsystem.stopFeederMotor();
     shooterSubsystem.stopShooterMotor();
+    shooterSubsystem.setShooterActive(false);
   }
 
   @Override

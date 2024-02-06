@@ -19,6 +19,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private final boolean isBreakMode = true;
 
   private boolean isPIDActive = true;
+  private boolean isShooterActive = false;
 
   private final DigitalInput hasNoteSwitch, shooterBackSwitch, shooterFrontSwitch;
 
@@ -48,8 +49,12 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     if (isPIDActive && Constants.ROBOT_ENABLED) {
       double speed = limelightSubsystem.getYOutput();
-      this.setShooterMotor(speed);
+      this.setPivotMotor(speed);
     }
+  }
+
+  public void setTargetLock(boolean isActive){
+    isPIDActive = isActive;
   }
 
   public double getCalculatedShooterSpeed() {
@@ -101,5 +106,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public boolean hasNote() {
     return !hasNoteSwitch.get();
+  }
+  public boolean isShooterActive(){
+    return isShooterActive;
+  }
+  public void setShooterActive(boolean isShooterActive){
+    this.isShooterActive = isShooterActive;
   }
 }
