@@ -17,6 +17,10 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class Red_3NoteAuto extends SequentialCommandGroup {
 
+  /*
+   * TODO: shooter active parametresi gereksiz
+   * eğer olursa bu sefer timingler kayacak tekrar kontrol edelim
+   */
   public Red_3NoteAuto(Drivetrain drivetrain, LimelightSubsystem limelightSubsystem,
   ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem) {
     addCommands(
@@ -27,6 +31,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         new WaitCommand(3.5),
         new MecanumDrive(
           drivetrain,
+          () -> shooterSubsystem.isShooterActive(),
           () -> 0.35,
           () -> 0.0, 
           () -> 0.0,
@@ -38,6 +43,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         new WaitCommand(1.75),
         new MecanumDrive(
           drivetrain,
+          () -> shooterSubsystem.isShooterActive(),
           () -> -0.2,
           () -> 0.4, 
           () -> 0.0,
@@ -50,6 +56,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         new WaitCommand(2.5),
         new MecanumDrive(
           drivetrain,
+          () -> shooterSubsystem.isShooterActive(),
           () -> 0.38,
           () -> 0.0, 
           () -> -0.07,
@@ -61,6 +68,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         new WaitCommand(1.25),
         new MecanumDrive(
           drivetrain,
+          () -> shooterSubsystem.isShooterActive(),
           () -> -0.3,
           () -> 0.0, 
           () -> 0.0,
@@ -73,6 +81,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         new WaitCommand(1.25),
         new MecanumDrive(
           drivetrain,
+          () -> shooterSubsystem.isShooterActive(),
           () -> 0.3,
           () -> 0.0, 
           () -> 0.0,
