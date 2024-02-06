@@ -36,7 +36,9 @@ public class SetShooterAngle extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    shooterSubsystem.setIsPivotPIDActive(false);
+  }
 
   @Override
   public void execute() {
@@ -46,6 +48,7 @@ public class SetShooterAngle extends Command {
   @Override
   public void end(boolean interrupted) {
     shooterSubsystem.stopPivotMotor();
+    shooterSubsystem.setIsPivotPIDActive(false);
   }
 
   @Override
