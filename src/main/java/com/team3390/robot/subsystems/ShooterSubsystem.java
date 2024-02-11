@@ -72,6 +72,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stopPivotMotor() {
     pivotMotorMaster.stopMotor();
+    pivotMotorSlave.stopMotor();
   }
 
 
@@ -86,6 +87,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stopShooterMotor() {
     shooterMotorMaster.stopMotor();
+    shooterMotorSlave.stopMotor();
   }
 
   public void feedTorus(double speed) {
