@@ -13,9 +13,9 @@ public final class Constants {
   public static final int JOYSTICK_RIGHT_PORT = 1;
   public static final int JOYSTICK_GAMEPAD_PORT = 4;
 
-  public static final int     DRIVE_FRONT_LEFT_ID = 3;//2 numaralı talon problemli
+  public static final int     DRIVE_FRONT_LEFT_ID = 4;//2 numaralı talon problemli
   public static final int     DRIVE_FRONT_RIGHT_ID = 15;
-  public static final int     DRIVE_REAR_LEFT_ID = 1;
+  public static final int     DRIVE_REAR_LEFT_ID = 3;
   public static final int     DRIVE_REAR_RIGHT_ID = 14;
   public static final boolean DRIVE_FRONT_LEFT_INVERTED = false;
   public static final boolean DRIVE_FRONT_RIGHT_INVERTED = true;
@@ -59,11 +59,11 @@ public final class Constants {
   public  static final int ELEVATOR_DOWN_SWITCH_ID = 1;
   public static final int ELEVATOR_UP_SWITCH_ID = 7;
 
-  public static final int    SHOOTER_PIVOT_MOTOR_MASTER_ID = 6;
-  public static final int    SHOOTER_PIVOT_MOTOR_SLAVE_ID = 7;
-  public static final int    SHOOTER_SHOT_MOTOR_MASTER_ID = 8;
-  public static final int    SHOOTER_SHOT_MOTOR_SLAVE_ID = 9;
-  public static final int    SHOOTER_FEEDER_MOTOR_ID = 10;
+  public static final int    SHOOTER_PIVOT_MOTOR_MASTER_ID = 11;
+  public static final int    SHOOTER_PIVOT_MOTOR_SLAVE_ID = 10;
+  public static final int    SHOOTER_SHOT_MOTOR_MASTER_ID = 1;
+  public static final int    SHOOTER_SHOT_MOTOR_SLAVE_ID = 2;
+  public static final int    SHOOTER_FEEDER_MOTOR_ID = 0;
   public static final double SHOOTER_PIVOT_PID_P = 0.0;
   public static final double SHOOTER_PIVOT_PID_I = 0.0;
   public static final double SHOOTER_PIVOT_PID_D = 0.0;

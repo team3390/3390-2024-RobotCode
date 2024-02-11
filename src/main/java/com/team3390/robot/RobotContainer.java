@@ -8,6 +8,10 @@ import com.team3390.robot.commands.auto.Red_3NoteAuto;
 import com.team3390.robot.commands.drive.MecanumDrive;
 import com.team3390.robot.commands.elevator.ElevatorDown;
 import com.team3390.robot.commands.elevator.ElevatorUp;
+import com.team3390.robot.commands.shooter.ManualAngleSetDown;
+import com.team3390.robot.commands.shooter.ManualAngleSetUp;
+import com.team3390.robot.commands.shooter.ManualFeed;
+import com.team3390.robot.commands.shooter.ManualShoot;
 import com.team3390.robot.subsystems.Drivetrain;
 import com.team3390.robot.subsystems.ElevatorSubsystem;
 import com.team3390.robot.subsystems.IntakeSubsystem;
@@ -50,6 +54,10 @@ public class RobotContainer {
     new Trigger(() -> gamepad.getRawButton(3)).whileTrue(deactivateTargetLock);
     new Trigger(() -> gamepad.getRawButton(2)).whileTrue(new ElevatorDown(elevator));
     new Trigger(() -> gamepad.getRawButton(4)).whileTrue(new ElevatorUp(elevator));
+    new Trigger(() -> gamepad.getRawButton(8)).whileTrue(new ManualShoot(shooter));
+    new Trigger(() -> gamepad.getRawButton(6)).whileTrue(new ManualFeed(shooter));
+    new Trigger(() -> gamepad.getRawButton(0)).whileTrue(new ManualAngleSetUp(shooter));
+    new Trigger(() -> gamepad.getRawButton(0)).whileTrue(new ManualAngleSetDown(shooter));
   }
 
   public void updateVars() {
