@@ -14,7 +14,6 @@ public class ManualFeed extends Command {
   /** Creates a new ManualFeed. */
   public ManualFeed(ShooterSubsystem shooterSubsystem) {
     this.shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

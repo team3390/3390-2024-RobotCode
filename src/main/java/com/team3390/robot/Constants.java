@@ -11,8 +11,7 @@ public final class Constants {
 
   public static final int JOYSTICK_LEFT_PORT = 0;
   public static final int JOYSTICK_RIGHT_PORT = 1;
-  public static final int JOYSTICK_DRIVER_GAMEPAD_PORT = 4;
-  public static final int JOYSTICK_HELPER_GAMEPAD_PORT = 5;
+  public static final int JOYSTICK_GAMEPAD_PORT = 4;
 
   public static final int     DRIVE_FRONT_LEFT_ID = 4;//2 numaralı talon problemli
   public static final int     DRIVE_FRONT_RIGHT_ID = 15;

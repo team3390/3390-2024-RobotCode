@@ -40,6 +40,8 @@ public class ShooterSubsystem extends SubsystemBase {
     Constants.SHOOTER_SHOT_MOTOR_MASTER_ID, motorConfig);
     feederMotor = TalonSRXCreator.createTalon(Constants.SHOOTER_FEEDER_MOTOR_ID, motorConfig);
 
+    shooterMotorSlave.setInverted(true);
+
     hasNoteSwitch = new DigitalInput(Constants.SHOOTER_SWITCH_ID);
     shooterBackSwitch = new DigitalInput(8);
     shooterFrontSwitch = new DigitalInput(9);
@@ -67,7 +69,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setPivotMotor(double speed) {
     pivotMotorMaster.set(speed);
-    pivotMotorSlave.set(speed);
+    pivotMotorSlave.set(-speed);
   }
 
   public void stopPivotMotor() {

@@ -6,6 +6,7 @@ package com.team3390.robot;
 
 import com.team3390.robot.commands.auto.Red_3NoteAuto;
 import com.team3390.robot.commands.drive.MecanumDrive;
+import com.team3390.robot.commands.elevator.ElevatorControl;
 import com.team3390.robot.commands.elevator.ElevatorDown;
 import com.team3390.robot.commands.elevator.ElevatorUp;
 import com.team3390.robot.commands.shooter.ManualFeed;
@@ -30,8 +31,9 @@ public class RobotContainer {
   private final ShooterSubsystem shooter = ShooterSubsystem.getInstance();
   private final IntakeSubsystem intake = IntakeSubsystem.getInstance();
   
-  private final Joystick driver_gamepad = new Joystick(Constants.JOYSTICK_DRIVER_GAMEPAD_PORT);
-  private final Joystick helper_gamepad = new Joystick(Constants.JOYSTICK_HELPER_GAMEPAD_PORT);
+  private final Joystick leftStick = new Joystick(Constants.JOYSTICK_LEFT_PORT);
+  private final Joystick rightStick = new Joystick(Constants.JOYSTICK_RIGHT_PORT);
+  private final Joystick gamepad = new Joystick(Constants.JOYSTICK_GAMEPAD_PORT);
 
   private final Command activateTargetLock = new InstantCommand(() -> {
     shooter.setTargetLock(true);
@@ -39,27 +41,54 @@ public class RobotContainer {
   private final Command deactivateTargetLock = new InstantCommand(() -> {
     shooter.setTargetLock(false);
   });
+  private final Command manualShootCommand = new ManualShoot(shooter);
+  private final Command manualFeedCommand = new ManualFeed(shooter);
 
   public RobotContainer() {
+    /* 
     drivetrain.setDefaultCommand(new MecanumDrive(
       drivetrain, 
       () -> shooter.isShooterActive(),
-      () -> -driver_gamepad.getRawAxis(1),
-      () -> driver_gamepad.getRawAxis(2),
-      () -> (driver_gamepad.getRawAxis(0) / 3),
+      () -> -leftStick.getY(),
+      () -> rightStick.getX(),
+      () -> (leftStick.getX() / 3),
       false
     ));
+    */
+    /* 
     shooter.setDefaultCommand(new ShooterAxisControl(
       shooter, 
-      () -> helper_gamepad.getRawAxis(3)
+      () -> gamepad.getRawAxis(3)
+    ));
+    */
+    drivetrain.setDefaultCommand(new MecanumDrive(
+      drivetrain, 
+      () -> shooter.isShooterActive(),
+      () -> -gamepad.getRawAxis(1),
+      () -> gamepad.getRawAxis(2),
+      () -> (gamepad.getRawAxis(0) / 3),
+      false
+    ));
+    elevator.setDefaultCommand(
+      new ElevatorControl(
+      elevator,
+      () -> -rightStick.getY()
+    ));
+    shooter.setDefaultCommand(
+      new ShooterAxisControl(
+        shooter,
+        () -> leftStick.getY()
     ));
 
-    new Trigger(() -> driver_gamepad.getRawButton(1)).whileTrue(activateTargetLock);
-    new Trigger(() -> driver_gamepad.getRawButton(3)).whileTrue(deactivateTargetLock);
-    new Trigger(() -> driver_gamepad.getRawButton(2)).whileTrue(new ElevatorDown(elevator));
-    new Trigger(() -> driver_gamepad.getRawButton(4)).whileTrue(new ElevatorUp(elevator));
-    new Trigger(() -> driver_gamepad.getRawButton(8)).whileTrue(new ManualShoot(shooter));
-    new Trigger(() -> driver_gamepad.getRawButton(6)).whileTrue(new ManualFeed(shooter));
+    new Trigger(() -> gamepad.getRawButton(1)).whileTrue(activateTargetLock);
+    new Trigger(() -> gamepad.getRawButton(3)).whileTrue(deactivateTargetLock);
+    new Trigger(() -> gamepad.getRawButton(2)).whileTrue(new ElevatorDown(elevator));
+    new Trigger(() -> gamepad.getRawButton(4)).whileTrue(new ElevatorUp(elevator));
+    new Trigger(() -> gamepad.getRawButton(8)).whileTrue(manualShootCommand);
+    new Trigger(() -> gamepad.getRawButton(6)).whileTrue(manualFeedCommand);
+
+    new Trigger(() -> rightStick.getRawButton(1)).whileTrue(manualShootCommand);
+    new Trigger(() -> leftStick.getRawButton(1)).whileTrue(manualFeedCommand);
   }
 
   public void updateVars() {

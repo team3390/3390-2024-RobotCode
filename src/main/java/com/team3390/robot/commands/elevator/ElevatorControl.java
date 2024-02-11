@@ -2,21 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package com.team3390.robot.commands.shooter;
+package com.team3390.robot.commands.elevator;
 
-import com.team3390.robot.subsystems.ShooterSubsystem;
+import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
+import com.team3390.robot.subsystems.ElevatorSubsystem;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class ManualShoot extends Command {
+public class ElevatorControl extends Command {
+  /** Creates a new ElevatorControl. */
+  private final ElevatorSubsystem elevatorSubsystem;
+  private final DoubleSupplier speed;
 
-  private final ShooterSubsystem shooterSubsystem;
-
-  private final SlewRateLimiter limiter = new SlewRateLimiter(1.5);
-  /** Creates a new ManualShoot. */
-  public ManualShoot(ShooterSubsystem shooterSubsystem) {
-    this.shooterSubsystem = shooterSubsystem;
+  public ElevatorControl(ElevatorSubsystem elevatorSubsystem, DoubleSupplier speed) {
+    this.elevatorSubsystem = elevatorSubsystem;
+    this.speed = speed;
+    addRequirements(elevatorSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,13 +29,13 @@ public class ManualShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.setShooterMotor(limiter.calculate(1));
+    elevatorSubsystem.setSpeed(speed.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.stopShooterMotor();
+    elevatorSubsystem.stopMotors();
   }
 
   // Returns true when the command should end.
