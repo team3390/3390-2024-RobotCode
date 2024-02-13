@@ -26,8 +26,8 @@ public class Shoot extends Command {
   public void execute() {
     shooterSubsystem.setShooterMotor(shooterSubsystem.getCalculatedShooterSpeed());
     if (shooterSubsystem.hasNote()) {
-      if ((Timer.getFPGATimestamp() - timestamp) > 2.5) {
-        shooterSubsystem.feedTorus(1);
+      if ((Timer.getFPGATimestamp() - timestamp) > 2) {
+        shooterSubsystem.feedTorus(0.7);
         timestamp = Timer.getFPGATimestamp();
       } else {
         shooterSubsystem.stopFeederMotor();

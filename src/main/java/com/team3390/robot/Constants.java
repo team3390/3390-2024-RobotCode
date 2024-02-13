@@ -23,6 +23,7 @@ public final class Constants {
   public static final boolean DRIVE_REAR_RIGHT_INVERTED = true;
   public static final double  DRIVE_RATE_LIMIT = 2.5;
   public static final double  DRIVE_RATE_X_LIMIT = 4;
+  public static final double DRIVE_RATE_Y_LIMIT = 4;
   public static final double  DRIVE_X_DEADBAND = 0.01;
   public static final double  DRIVE_Y_DEADBAND = 0.01;
   public static final double  DRIVE_ROTATION_DEADBAND = 0.01;

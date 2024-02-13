@@ -9,7 +9,8 @@ import com.team3390.robot.commands.drive.MecanumDrive;
 import com.team3390.robot.commands.elevator.ElevatorControl;
 import com.team3390.robot.commands.elevator.ElevatorDown;
 import com.team3390.robot.commands.elevator.ElevatorUp;
-import com.team3390.robot.commands.shooter.ManualFeed;
+import com.team3390.robot.commands.shooter.ManualFeedIn;
+import com.team3390.robot.commands.shooter.ManualFeedOut;
 import com.team3390.robot.commands.shooter.ManualShoot;
 import com.team3390.robot.commands.shooter.ShooterAxisControl;
 import com.team3390.robot.subsystems.Drivetrain;
@@ -42,7 +43,8 @@ public class RobotContainer {
     shooter.setTargetLock(false);
   });
   private final Command manualShootCommand = new ManualShoot(shooter);
-  private final Command manualFeedCommand = new ManualFeed(shooter);
+  private final Command manualFeedInCommand = new ManualFeedIn(shooter);
+  private final Command manualFeedOutCommand = new ManualFeedOut(shooter);
 
   public RobotContainer() {
     /* 
@@ -66,7 +68,7 @@ public class RobotContainer {
       () -> shooter.isShooterActive(),
       () -> -gamepad.getRawAxis(1),
       () -> gamepad.getRawAxis(2),
-      () -> (gamepad.getRawAxis(0) / 3),
+      () -> (gamepad.getRawAxis(0) / 2),
       false
     ));
     elevator.setDefaultCommand(
@@ -85,10 +87,11 @@ public class RobotContainer {
     new Trigger(() -> gamepad.getRawButton(2)).whileTrue(new ElevatorDown(elevator));
     new Trigger(() -> gamepad.getRawButton(4)).whileTrue(new ElevatorUp(elevator));
     new Trigger(() -> gamepad.getRawButton(8)).whileTrue(manualShootCommand);
-    new Trigger(() -> gamepad.getRawButton(6)).whileTrue(manualFeedCommand);
+    new Trigger(() -> gamepad.getRawButton(6)).whileTrue(manualFeedInCommand);
+    new Trigger(() -> gamepad.getRawButton(5)).whileTrue(manualFeedOutCommand);
 
     new Trigger(() -> rightStick.getRawButton(1)).whileTrue(manualShootCommand);
-    new Trigger(() -> leftStick.getRawButton(1)).whileTrue(manualFeedCommand);
+    new Trigger(() -> leftStick.getRawButton(1)).whileTrue(manualFeedInCommand);
   }
 
   public void updateVars() {

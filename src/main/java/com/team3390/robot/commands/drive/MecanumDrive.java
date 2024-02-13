@@ -26,7 +26,7 @@ public class MecanumDrive extends Command {
     this.fod = fod;
     this.drivetrain = drivetrain;
     this.xLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_X_LIMIT);
-    this.yLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_LIMIT);
+    this.yLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_Y_LIMIT);
     this.rotationLimiter = new SlewRateLimiter(Constants.DRIVE_RATE_LIMIT);
     this.isShooterActive = isShooterActive;
     addRequirements(drivetrain);

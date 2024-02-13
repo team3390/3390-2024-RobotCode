@@ -8,11 +8,11 @@ import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class ManualFeed extends Command {
+public class ManualFeedOut extends Command {
 
   private final ShooterSubsystem shooterSubsystem;
   /** Creates a new ManualFeed. */
-  public ManualFeed(ShooterSubsystem shooterSubsystem) {
+  public ManualFeedOut(ShooterSubsystem shooterSubsystem) {
     this.shooterSubsystem = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -24,7 +24,7 @@ public class ManualFeed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.feedTorus(0.7);
+    shooterSubsystem.feedTorus(-0.5);
   }
 
   // Called once the command ends or is interrupted.
