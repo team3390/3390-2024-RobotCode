@@ -47,7 +47,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         )
       ),
       new InstantCommand(() -> {
-        new Trigger(() -> limelightSubsystem.hasTarget()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
+        new Trigger(() -> limelightSubsystem.isYAtSetpoint()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
       }),
       new Shoot(shooterSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
@@ -81,7 +81,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         new GiveToShooter(intakeSubsystem)
       ),
       new InstantCommand(() -> {
-        new Trigger(() -> limelightSubsystem.hasTarget()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
+        new Trigger(() -> limelightSubsystem.isYAtSetpoint()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
       }),
       new Shoot(shooterSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
@@ -115,7 +115,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
         new GiveToShooter(intakeSubsystem)
       ),
       new InstantCommand(() -> {
-        new Trigger(() -> limelightSubsystem.hasTarget()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
+        new Trigger(() -> limelightSubsystem.isYAtSetpoint()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
       }),
       new Shoot(shooterSubsystem)
     );
