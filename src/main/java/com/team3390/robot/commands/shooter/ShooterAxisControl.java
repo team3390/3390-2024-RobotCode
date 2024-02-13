@@ -1,7 +1,6 @@
 package com.team3390.robot.commands.shooter;
 
 import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
 
 import com.team3390.robot.subsystems.ShooterSubsystem;
 

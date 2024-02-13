@@ -46,6 +46,6 @@ public class Shoot extends Command {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return !shooterSubsystem.hasNote();
   }
 }

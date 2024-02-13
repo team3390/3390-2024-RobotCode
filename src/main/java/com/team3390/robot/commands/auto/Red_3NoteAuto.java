@@ -1,9 +1,15 @@
 package com.team3390.robot.commands.auto;
 
 import com.team3390.robot.Constants.INTAKE_POSITIONS;
+import com.team3390.robot.Constants.SHOOTER_POSITIONS;
 import com.team3390.robot.commands.drive.MecanumDrive;
+import com.team3390.robot.commands.intake.GiveToShooter;
 import com.team3390.robot.commands.intake.IntakeNote;
 import com.team3390.robot.commands.intake.SetIntakeAngle;
+import com.team3390.robot.commands.shooter.SetShooterAngle;
+import com.team3390.robot.commands.shooter.Shoot;
+import com.team3390.robot.commands.shooter.ShooterAxisControl;
+import com.team3390.robot.commands.shooter.TakeNoteFromIntake;
 import com.team3390.robot.subsystems.Drivetrain;
 import com.team3390.robot.subsystems.ElevatorSubsystem;
 import com.team3390.robot.subsystems.IntakeSubsystem;
@@ -11,9 +17,11 @@ import com.team3390.robot.subsystems.LimelightSubsystem;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class Red_3NoteAuto extends SequentialCommandGroup {
 
@@ -38,6 +46,10 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
           false
         )
       ),
+      new InstantCommand(() -> {
+        new Trigger(() -> limelightSubsystem.hasTarget()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
+      }),
+      new Shoot(shooterSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
       new ParallelDeadlineGroup(
         new WaitCommand(1.75),
@@ -63,6 +75,15 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
           false
         )
       ),
+      new SetShooterAngle(shooterSubsystem, SHOOTER_POSITIONS.INTAKE),
+      new ParallelCommandGroup(
+        new TakeNoteFromIntake(shooterSubsystem),
+        new GiveToShooter(intakeSubsystem)
+      ),
+      new InstantCommand(() -> {
+        new Trigger(() -> limelightSubsystem.hasTarget()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
+      }),
+      new Shoot(shooterSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
       new ParallelDeadlineGroup(
         new WaitCommand(1.25),
@@ -87,7 +108,16 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
           () -> 0.0,
           false
         )
-      )
+      ),
+      new SetShooterAngle(shooterSubsystem, SHOOTER_POSITIONS.INTAKE),
+      new ParallelCommandGroup(
+        new TakeNoteFromIntake(shooterSubsystem),
+        new GiveToShooter(intakeSubsystem)
+      ),
+      new InstantCommand(() -> {
+        new Trigger(() -> limelightSubsystem.hasTarget()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
+      }),
+      new Shoot(shooterSubsystem)
     );
   }
 }
