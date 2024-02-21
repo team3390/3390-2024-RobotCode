@@ -43,8 +43,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooterMotorSlave.setInverted(true);
 
-    shooterMotorMaster.configOpenloopRamp(2);
-    shooterMotorSlave.configOpenloopRamp(2);
+    shooterMotorMaster.configOpenloopRamp(0.5);
+    shooterMotorSlave.configOpenloopRamp(0.5);
 
     hasNoteSwitch = new DigitalInput(Constants.SHOOTER_SWITCH_ID);
     shooterBackSwitch = new DigitalInput(8);

@@ -6,10 +6,11 @@ package com.team3390.robot;
 
 import com.team3390.robot.commands.auto.Red_3NoteAuto;
 import com.team3390.robot.commands.drive.MecanumDrive;
-import com.team3390.robot.commands.elevator.ElevatorControl;
 import com.team3390.robot.commands.elevator.ElevatorDown;
 import com.team3390.robot.commands.elevator.ElevatorUp;
 import com.team3390.robot.commands.intake.GiveToShooter;
+import com.team3390.robot.commands.intake.IntakeAxisControl;
+import com.team3390.robot.commands.intake.IntakeNote;
 import com.team3390.robot.commands.shooter.ManualFeedIn;
 import com.team3390.robot.commands.shooter.ManualFeedOut;
 import com.team3390.robot.commands.shooter.ManualShoot;
@@ -52,6 +53,7 @@ public class RobotContainer {
     new TakeNoteFromIntake(shooter),
     new GiveToShooter(intake)
   );
+  private final Command intakeNoteCommand = new IntakeNote(intake);
 
   public RobotContainer() {
     /* 
@@ -78,11 +80,12 @@ public class RobotContainer {
       () -> (gamepad.getRawAxis(0) / 2),
       false
     ));
-    elevator.setDefaultCommand(
-      new ElevatorControl(
-      elevator,
-      () -> -rightStick.getY()
-    ));
+    intake.setDefaultCommand(
+      new IntakeAxisControl(
+        intake,
+        () -> rightStick.getY()
+      )
+    );
     shooter.setDefaultCommand(
       new ShooterAxisControl(
         shooter,
@@ -100,6 +103,8 @@ public class RobotContainer {
 
     new Trigger(() -> rightStick.getRawButton(1)).whileTrue(manualShootCommand);
     new Trigger(() -> leftStick.getRawButton(1)).whileTrue(manualFeedInCommand);
+
+    new Trigger(() -> rightStick.getRawButton(5)).whileTrue(intakeNoteCommand);
   }
 
   public void updateVars() {

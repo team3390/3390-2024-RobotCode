@@ -18,7 +18,7 @@ public class IntakeNote extends Command {
 
   @Override
   public void execute() {
-    intakeSubsystem.setIntakeMotor(0.75);
+    intakeSubsystem.setIntakeMotor(0.2);
   }
 
   @Override

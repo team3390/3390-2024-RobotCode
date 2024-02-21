@@ -1,6 +1,8 @@
 package com.team3390.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.team3390.lib.drivers.LazyTalonSRX;
 import com.team3390.lib.drivers.TalonSRXCreator;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
@@ -17,7 +19,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private final CompetitionShuffleboard shuffleboard = CompetitionShuffleboard.getInstance();
 
   private final Configuration motorConfig = new Configuration();
-  private final LazyTalonSRX pivotMotor, intakeMotor;
+  private final LazyTalonSRX pivotMotor, pivotMotorSlave;
+  private final CANSparkMax intakeMotor1, intakeMotor2;
   private final boolean isBreakMode = true;
 
   private final DigitalInput intakeSwitch;
@@ -45,7 +48,9 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     motorConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     pivotMotor = TalonSRXCreator.createTalon(Constants.INTAKE_PIVOT_MOTOR_ID, motorConfig);
-    intakeMotor = TalonSRXCreator.createTalon(Constants.INTAKE_HAND_MOTOR_ID, motorConfig);
+    pivotMotorSlave = TalonSRXCreator.createTalon(Constants.INTAKE_PIVOT_MOTOR_SLAVE_ID, motorConfig);
+    intakeMotor1 = new CANSparkMax(20, MotorType.kBrushless);
+    intakeMotor2 = new CANSparkMax(21, MotorType.kBrushless);
 
     intakeSwitch = new DigitalInput(Constants.INTAKE_SWITCH_ID);
 
@@ -92,10 +97,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void setPivotMotor(double speed) {
     pivotMotor.set(speed);
+    pivotMotorSlave.set(-speed);
   }
 
   public void stopPivotMotor() {
     pivotMotor.stopMotor();
+    pivotMotorSlave.stopMotor();
   }
 
   public void setIsPivotPIDActive(boolean isActive) {
@@ -107,10 +114,12 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setIntakeMotor(double speed) {
-    intakeMotor.set(speed);
+    intakeMotor1.set(speed);
+    intakeMotor2.set(speed);
   }
 
   public void stopIntakeMotor() {
-    intakeMotor.stopMotor();
+    intakeMotor1.stopMotor();
+    intakeMotor2.stopMotor();
   }
 }
