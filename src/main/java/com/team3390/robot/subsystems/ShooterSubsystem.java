@@ -7,6 +7,7 @@ import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
 import com.team3390.robot.Constants;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -42,6 +43,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooterMotorSlave.setInverted(true);
 
+    shooterMotorMaster.configOpenloopRamp(2);
+    shooterMotorSlave.configOpenloopRamp(2);
+
     hasNoteSwitch = new DigitalInput(Constants.SHOOTER_SWITCH_ID);
     shooterBackSwitch = new DigitalInput(8);
     shooterFrontSwitch = new DigitalInput(9);
@@ -51,6 +55,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     if (isPIDActive) {
       double speed = limelightSubsystem.getYOutput();
+      SmartDashboard.putNumber("Limelight Pivot speed", speed);
       // this.setPivotMotor(speed);
     }
   }
@@ -111,7 +116,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public boolean hasNote() {
     return !hasNoteSwitch.get();
   }
-  public boolean isShooterActive(){
+  public boolean isShooterActive() {
     return isShooterActive;
   }
   public void setShooterActive(boolean isShooterActive){

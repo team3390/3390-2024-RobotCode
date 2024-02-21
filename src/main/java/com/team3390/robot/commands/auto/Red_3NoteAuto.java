@@ -7,7 +7,7 @@ import com.team3390.robot.commands.intake.GiveToShooter;
 import com.team3390.robot.commands.intake.IntakeNote;
 import com.team3390.robot.commands.intake.SetIntakeAngle;
 import com.team3390.robot.commands.shooter.SetShooterAngle;
-import com.team3390.robot.commands.shooter.Shoot;
+import com.team3390.robot.commands.shooter.AutoShoot;
 import com.team3390.robot.commands.shooter.ShooterAxisControl;
 import com.team3390.robot.commands.shooter.TakeNoteFromIntake;
 import com.team3390.robot.subsystems.Drivetrain;
@@ -49,7 +49,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
       new InstantCommand(() -> {
         new Trigger(() -> limelightSubsystem.isYAtSetpoint()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
       }),
-      new Shoot(shooterSubsystem),
+      new AutoShoot(shooterSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
       new ParallelDeadlineGroup(
         new WaitCommand(1.75),
@@ -83,7 +83,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
       new InstantCommand(() -> {
         new Trigger(() -> limelightSubsystem.isYAtSetpoint()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
       }),
-      new Shoot(shooterSubsystem),
+      new AutoShoot(shooterSubsystem),
       new SetIntakeAngle(intakeSubsystem, INTAKE_POSITIONS.FLOOR),
       new ParallelDeadlineGroup(
         new WaitCommand(1.25),
@@ -117,7 +117,7 @@ public class Red_3NoteAuto extends SequentialCommandGroup {
       new InstantCommand(() -> {
         new Trigger(() -> limelightSubsystem.isYAtSetpoint()).whileFalse(new ShooterAxisControl(shooterSubsystem, () -> 0.3));
       }),
-      new Shoot(shooterSubsystem)
+      new AutoShoot(shooterSubsystem)
     );
   }
 }

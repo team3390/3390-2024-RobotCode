@@ -49,7 +49,7 @@ public class MecanumDrive extends Command {
     y = yLimiter.calculate(y);
     rot = rotationLimiter.calculate(rot);
 
-    if(isShooterActive.getAsBoolean()){
+    if (isShooterActive.getAsBoolean()){
       x = x/2;
       y = y/2;
       rot = rot/2;

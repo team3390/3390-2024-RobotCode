@@ -5,13 +5,13 @@ import com.team3390.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class Shoot extends Command {
+public class AutoShoot extends Command {
 
   private final ShooterSubsystem shooterSubsystem;
 
   private double timestamp;
 
-  public Shoot(ShooterSubsystem shooterSubsystem) {
+  public AutoShoot(ShooterSubsystem shooterSubsystem) {
     this.shooterSubsystem = shooterSubsystem;
     addRequirements(shooterSubsystem);
   }
