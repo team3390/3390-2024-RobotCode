@@ -16,7 +16,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   private final Configuration motorConfig = new Configuration();
   private final LazyTalonSRX pivotMotorMaster, pivotMotorSlave, shooterMotorMaster, shooterMotorSlave, feederMotor;
-  private final boolean isBreakMode = true;
+  private final boolean isBreakMode = false;
 
   private boolean isPIDActive = true;
   private boolean isShooterActive = false;
@@ -49,9 +49,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (isPIDActive && Constants.ROBOT_ENABLED) {
+    if (isPIDActive) {
       double speed = limelightSubsystem.getYOutput();
-      this.setPivotMotor(speed);
+      // this.setPivotMotor(speed);
     }
   }
 

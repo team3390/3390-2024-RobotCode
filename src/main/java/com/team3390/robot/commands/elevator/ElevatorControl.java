@@ -6,6 +6,7 @@ package com.team3390.robot.commands.elevator;
 
 import java.util.function.DoubleSupplier;
 
+import com.team3390.robot.Constants;
 import com.team3390.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,7 +30,8 @@ public class ElevatorControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setSpeed(speed.getAsDouble());
+    double calcspeed = Math.abs(speed.getAsDouble()) > Constants.DRIVE_X_DEADBAND ? speed.getAsDouble() : 0.0;
+    elevatorSubsystem.setSpeed(calcspeed);
   }
 
   // Called once the command ends or is interrupted.

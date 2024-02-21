@@ -72,6 +72,7 @@ public final class Constants {
   public static final double SHOOTER_PIVOT_PID_MAX_OUT = 1;
   public static final double SHOOTER_PIVOT_PID_MIN_OUT = INTAKE_PIVOT_PID_MAX_OUT * -1;
   public static final int    SHOOTER_SWITCH_ID = 15;
+  public static final double SHOOTER_PIVOT_DEADBAND = 0.09;
   public static enum  SHOOTER_POSITIONS {
     INTAKE, SPEAKER, AMP
   }

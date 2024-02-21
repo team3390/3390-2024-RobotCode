@@ -16,7 +16,7 @@ public class Drivetrain extends SubsystemBase {
 
   private static Drivetrain instance;
 
-  private boolean isBreakMode = true;
+  private boolean isBreakMode = false;
 
   private final Configuration talonConfiguration = new Configuration();
   private final LazyTalonSRX frontLeft, frontRight, rearLeft, rearRight;

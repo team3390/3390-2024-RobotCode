@@ -16,7 +16,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final LazyTalonSRX master, slave;
   private final Configuration talonConfig = new Configuration();
-  private final boolean isBreakMode = true;
+  private final boolean isBreakMode = false;
 
   private final DigitalInput downSwitch, upSwitch;
 

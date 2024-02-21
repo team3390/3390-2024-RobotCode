@@ -24,7 +24,7 @@ public class ManualFeedOut extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.feedTorus(-0.5);
+    shooterSubsystem.feedTorus(-0.4);
   }
 
   // Called once the command ends or is interrupted.

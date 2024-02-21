@@ -13,7 +13,7 @@ public class ManualShoot extends Command {
 
   private final ShooterSubsystem shooterSubsystem;
 
-  private final SlewRateLimiter limiter = new SlewRateLimiter(1.5);
+  private final SlewRateLimiter limiter = new SlewRateLimiter(4);
   /** Creates a new ManualShoot. */
   public ManualShoot(ShooterSubsystem shooterSubsystem) {
     this.shooterSubsystem = shooterSubsystem;
@@ -22,7 +22,9 @@ public class ManualShoot extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    shooterSubsystem.setShooterActive(true);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -34,6 +36,7 @@ public class ManualShoot extends Command {
   @Override
   public void end(boolean interrupted) {
     shooterSubsystem.stopShooterMotor();
+    shooterSubsystem.setShooterActive(false);
   }
 
   // Returns true when the command should end.
