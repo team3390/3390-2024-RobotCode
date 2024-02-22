@@ -6,7 +6,6 @@ import com.team3390.lib.drivers.TalonSRXCreator;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
 import com.team3390.robot.Constants;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -19,10 +18,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private final LazyTalonSRX pivotMotorMaster, pivotMotorSlave, shooterMotorMaster, shooterMotorSlave, feederMotor;
   private final boolean isBreakMode = false;
 
-  private boolean isPIDActive = true;
+  private boolean isPIDActive = false;
   private boolean isShooterActive = false;
-
-  private final DigitalInput hasNoteSwitch, shooterBackSwitch, shooterFrontSwitch;
 
   public synchronized static ShooterSubsystem getInstance() {
     if (instance == null) {
@@ -43,12 +40,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooterMotorSlave.setInverted(true);
 
-    shooterMotorMaster.configOpenloopRamp(0.5);
-    shooterMotorSlave.configOpenloopRamp(0.5);
-
-    hasNoteSwitch = new DigitalInput(Constants.SHOOTER_SWITCH_ID);
-    shooterBackSwitch = new DigitalInput(8);
-    shooterFrontSwitch = new DigitalInput(9);
+    shooterMotorMaster.configOpenloopRamp(Constants.SHOOTER_SHOOT_MOTOR_ACCELERATION);
+    shooterMotorSlave.configOpenloopRamp(Constants.SHOOTER_SHOOT_MOTOR_ACCELERATION);
   }
 
   @Override
@@ -56,7 +49,7 @@ public class ShooterSubsystem extends SubsystemBase {
     if (isPIDActive) {
       double speed = limelightSubsystem.getYOutput();
       SmartDashboard.putNumber("Limelight Pivot speed", speed);
-      // this.setPivotMotor(speed);
+      this.setPivotMotor(speed);
     }
   }
 
@@ -105,17 +98,6 @@ public class ShooterSubsystem extends SubsystemBase {
     feederMotor.stopMotor();
   }
 
-  public boolean isBackPressing() {
-    return shooterBackSwitch.get();
-  }
-
-  public boolean isFrontPressing() {
-    return shooterFrontSwitch.get();
-  }
-
-  public boolean hasNote() {
-    return !hasNoteSwitch.get();
-  }
   public boolean isShooterActive() {
     return isShooterActive;
   }

@@ -6,8 +6,6 @@ import com.team3390.lib.drivers.TalonSRXCreator;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
 import com.team3390.robot.Constants;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -17,8 +15,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final LazyTalonSRX master, slave;
   private final Configuration talonConfig = new Configuration();
   private final boolean isBreakMode = false;
-
-  private final DigitalInput downSwitch, upSwitch;
 
   public synchronized static ElevatorSubsystem getInstance() {
     if (instance == null) {
@@ -33,14 +29,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     master = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_MASTER_ID, talonConfig);
     slave = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_SLAVE_ID, talonConfig);
 
-    downSwitch = new DigitalInput(Constants.ELEVATOR_DOWN_SWITCH_ID);
-    upSwitch = new DigitalInput(Constants.ELEVATOR_UP_SWITCH_ID);
   }
 
   @Override
-  public void periodic() {
-    SmartDashboard.putBoolean("ElevatorDownSwitch", downSwitch.get());
-  }
+  public void periodic() {}
 
   public void setSpeed(double speed) {
     master.set(speed);
@@ -50,12 +42,5 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void stopMotors() {
     master.stopMotor();
     slave.stopMotor();
-  }
-
-  public boolean IsElevatorDown(){
-    return downSwitch.get() == false;
-  }
-  public boolean IsElevatorUp(){
-    return upSwitch.get() == false;
   }
 }

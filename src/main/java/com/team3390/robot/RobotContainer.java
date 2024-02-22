@@ -8,31 +8,26 @@ import com.team3390.robot.commands.auto.Red_3NoteAuto;
 import com.team3390.robot.commands.drive.MecanumDrive;
 import com.team3390.robot.commands.elevator.ElevatorDown;
 import com.team3390.robot.commands.elevator.ElevatorUp;
-import com.team3390.robot.commands.intake.GiveToShooter;
 import com.team3390.robot.commands.intake.IntakeAxisControl;
 import com.team3390.robot.commands.intake.IntakeNote;
 import com.team3390.robot.commands.shooter.ManualFeedIn;
 import com.team3390.robot.commands.shooter.ManualFeedOut;
 import com.team3390.robot.commands.shooter.ManualShoot;
 import com.team3390.robot.commands.shooter.ShooterAxisControl;
-import com.team3390.robot.commands.shooter.TakeNoteFromIntake;
 import com.team3390.robot.subsystems.Drivetrain;
 import com.team3390.robot.subsystems.ElevatorSubsystem;
 import com.team3390.robot.subsystems.IntakeSubsystem;
-import com.team3390.robot.subsystems.LimelightSubsystem;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 
   private final Drivetrain drivetrain = Drivetrain.getInstance();
   private final ElevatorSubsystem elevator = ElevatorSubsystem.getInstance();
-  private final LimelightSubsystem limelight = LimelightSubsystem.getInstance();
   private final ShooterSubsystem shooter = ShooterSubsystem.getInstance();
   private final IntakeSubsystem intake = IntakeSubsystem.getInstance();
   
@@ -47,31 +42,12 @@ public class RobotContainer {
     shooter.setTargetLock(false);
   });
   private final Command manualShootCommand = new ManualShoot(shooter);
-  private final Command manualFeedInCommand = new ManualFeedIn(shooter);
+  private final Command manualFeedInCommand = new ManualFeedIn(shooter, intake);
   private final Command manualFeedOutCommand = new ManualFeedOut(shooter);
-  private final Command moveNoteToShooterCommand = new ParallelCommandGroup(
-    new TakeNoteFromIntake(shooter),
-    new GiveToShooter(intake)
-  );
+  
   private final Command intakeNoteCommand = new IntakeNote(intake);
 
   public RobotContainer() {
-    /* 
-    drivetrain.setDefaultCommand(new MecanumDrive(
-      drivetrain, 
-      () -> shooter.isShooterActive(),
-      () -> -leftStick.getY(),
-      () -> rightStick.getX(),
-      () -> (leftStick.getX() / 3),
-      false
-    ));
-    */
-    /* 
-    shooter.setDefaultCommand(new ShooterAxisControl(
-      shooter, 
-      () -> gamepad.getRawAxis(3)
-    ));
-    */
     drivetrain.setDefaultCommand(new MecanumDrive(
       drivetrain, 
       () -> shooter.isShooterActive(),
@@ -99,7 +75,6 @@ public class RobotContainer {
     new Trigger(() -> gamepad.getRawButton(8)).whileTrue(manualShootCommand);
     new Trigger(() -> gamepad.getRawButton(6)).whileTrue(manualFeedInCommand);
     new Trigger(() -> gamepad.getRawButton(5)).whileTrue(manualFeedOutCommand);
-    new Trigger(() -> gamepad.getRawButton(7)).whileTrue(moveNoteToShooterCommand);
 
     new Trigger(() -> rightStick.getRawButton(1)).whileTrue(manualShootCommand);
     new Trigger(() -> leftStick.getRawButton(1)).whileTrue(manualFeedInCommand);
@@ -112,6 +87,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new Red_3NoteAuto(drivetrain,limelight,shooter,intake,elevator);
+    return new Red_3NoteAuto(drivetrain, shooter);
   }
 }

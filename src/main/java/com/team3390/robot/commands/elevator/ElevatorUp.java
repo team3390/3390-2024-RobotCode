@@ -1,5 +1,6 @@
 package com.team3390.robot.commands.elevator;
 
+import com.team3390.robot.Constants;
 import com.team3390.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,7 +19,7 @@ public class ElevatorUp extends Command {
 
   @Override
   public void execute() {
-    elevatorSubsystem.setSpeed(0.7);
+    elevatorSubsystem.setSpeed(Constants.ELEVATOR_UP_SPEED);
   }
 
   @Override
@@ -28,6 +29,6 @@ public class ElevatorUp extends Command {
 
   @Override
   public boolean isFinished() {
-    return elevatorSubsystem.IsElevatorUp();
+    return false;
   }
 }

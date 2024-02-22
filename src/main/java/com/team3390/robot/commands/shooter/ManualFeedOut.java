@@ -1,5 +1,6 @@
 package com.team3390.robot.commands.shooter;
 
+import com.team3390.robot.Constants;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,7 +18,7 @@ public class ManualFeedOut extends Command {
 
   @Override
   public void execute() {
-    shooterSubsystem.feedTorus(-0.4);
+    shooterSubsystem.feedTorus(Constants.SHOOTER_FEED_OUT_SPEEED);
   }
 
   @Override
