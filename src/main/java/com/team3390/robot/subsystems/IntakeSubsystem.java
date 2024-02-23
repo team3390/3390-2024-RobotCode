@@ -49,8 +49,8 @@ public class IntakeSubsystem extends SubsystemBase {
     motorConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     pivotMotor = TalonSRXCreator.createTalon(Constants.INTAKE_PIVOT_MOTOR_ID, motorConfig);
     pivotMotorSlave = TalonSRXCreator.createTalon(Constants.INTAKE_PIVOT_MOTOR_SLAVE_ID, motorConfig);
-    intakeMotor1 = new CANSparkMax(20, MotorType.kBrushless);
-    intakeMotor2 = new CANSparkMax(21, MotorType.kBrushless);
+    intakeMotor1 = new CANSparkMax(1, MotorType.kBrushless);
+    intakeMotor2 = new CANSparkMax(2, MotorType.kBrushless);
 
     intakeSwitch = new DigitalInput(Constants.INTAKE_SWITCH_ID);
 

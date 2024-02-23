@@ -8,6 +8,7 @@ import com.team3390.robot.commands.auto.Red_3NoteAuto;
 import com.team3390.robot.commands.drive.MecanumDrive;
 import com.team3390.robot.commands.elevator.ElevatorDown;
 import com.team3390.robot.commands.elevator.ElevatorUp;
+import com.team3390.robot.commands.elevator.ToggleBrake;
 import com.team3390.robot.commands.intake.IntakeAxisControl;
 import com.team3390.robot.commands.intake.IntakeNote;
 import com.team3390.robot.commands.shooter.ManualFeedIn;
@@ -19,7 +20,9 @@ import com.team3390.robot.subsystems.ElevatorSubsystem;
 import com.team3390.robot.subsystems.IntakeSubsystem;
 import com.team3390.robot.subsystems.ShooterSubsystem;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,7 +50,10 @@ public class RobotContainer {
   
   private final Command intakeNoteCommand = new IntakeNote(intake);
 
+  private final Compressor comp = new Compressor(PneumaticsModuleType.CTREPCM);
+
   public RobotContainer() {
+    comp.enableDigital();
     drivetrain.setDefaultCommand(new MecanumDrive(
       drivetrain, 
       () -> shooter.isShooterActive(),
@@ -80,6 +86,9 @@ public class RobotContainer {
     new Trigger(() -> leftStick.getRawButton(1)).whileTrue(manualFeedInCommand);
 
     new Trigger(() -> rightStick.getRawButton(5)).whileTrue(intakeNoteCommand);
+    new Trigger(() -> rightStick.getRawButton(2)).whileTrue(new ToggleBrake(elevator, false));
+    new Trigger(() -> rightStick.getRawButton(3)).whileTrue(new ToggleBrake(elevator, true));
+
   }
 
   public void updateVars() {
