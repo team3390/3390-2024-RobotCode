@@ -66,8 +66,10 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setPivotMotor(double speed) {
-    pivotMotorMaster.set(speed);
-    pivotMotorSlave.set(-speed);
+    if (speed != 0) {
+      pivotMotorMaster.set(speed);
+      pivotMotorSlave.set(-speed);
+    }
   }
 
   public void stopPivotMotor() {

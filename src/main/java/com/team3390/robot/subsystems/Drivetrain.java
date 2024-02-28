@@ -90,10 +90,12 @@ public class Drivetrain extends SubsystemBase {
    * @param fod Field-Oriented Driving
    */
   public void driveCartesian(double xSpeed, double ySpeed, double zRotation, boolean fod) {
-    if (fod) {
-      driveController.driveCartesian(xSpeed, ySpeed, zRotation, getHeading2d());
-    } else {
-      driveController.driveCartesian(xSpeed, ySpeed, zRotation);
+    if (xSpeed + ySpeed + zRotation != 0) {
+      if (fod) {
+        driveController.driveCartesian(xSpeed, ySpeed, zRotation, getHeading2d());
+      } else {
+        driveController.driveCartesian(xSpeed, ySpeed, zRotation);
+      }
     }
   }
 

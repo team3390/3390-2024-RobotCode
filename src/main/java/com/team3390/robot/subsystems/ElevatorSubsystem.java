@@ -40,8 +40,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {}
 
   public void setSpeed(double speed) {
-    master.set(speed);
-    slave.set(speed);
+    if (speed != 0) {
+      master.set(speed);
+      slave.set(speed);
+    }
   }
 
   public void stopMotors() {

@@ -96,8 +96,10 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setPivotMotor(double speed) {
-    pivotMotor.set(speed);
-    pivotMotorSlave.set(-speed);
+    if (speed != 0) {
+      pivotMotor.set(speed);
+      pivotMotorSlave.set(-speed);
+    }
   }
 
   public void stopPivotMotor() {
@@ -114,8 +116,10 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setIntakeMotor(double speed) {
-    intakeMotor1.set(speed);
-    intakeMotor2.set(speed);
+    if (speed != 0) {
+      intakeMotor1.set(speed);
+      intakeMotor2.set(speed);
+    }
   }
 
   public void stopIntakeMotor() {
