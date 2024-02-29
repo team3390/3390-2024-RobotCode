@@ -14,7 +14,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private static IntakeSubsystem instance;
 
   private final Configuration motorConfig = new Configuration();
-  private final WPI_TalonSRX pivotMotor, pivotMotorSlave;
+  private final WPI_TalonSRX pivotMotor;
   private final CANSparkMax intakeMotor1, intakeMotor2;
   private final boolean isBreakMode = false;
 
@@ -28,7 +28,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     motorConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     pivotMotor = new WPI_TalonSRX(Constants.INTAKE_PIVOT_MOTOR_ID);
-    pivotMotorSlave = new WPI_TalonSRX(Constants.INTAKE_PIVOT_MOTOR_SLAVE_ID);
     intakeMotor1 = new CANSparkMax(1, MotorType.kBrushless);
     intakeMotor2 = new CANSparkMax(2, MotorType.kBrushless);
   }
@@ -39,13 +38,11 @@ public class IntakeSubsystem extends SubsystemBase {
   public void setPivotMotor(double speed) {
     if (speed != 0) {
       pivotMotor.set(speed);
-      pivotMotorSlave.set(-speed);
     }
   }
 
   public void stopPivotMotor() {
     pivotMotor.stopMotor();
-    pivotMotorSlave.stopMotor();
   }
   public void setIntakeMotor(double speed) {
     if (speed != 0) {

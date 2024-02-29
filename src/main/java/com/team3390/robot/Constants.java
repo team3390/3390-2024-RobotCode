@@ -34,8 +34,8 @@ public final class Constants {
   public static final double  DRIVE_ROTATION_PID_MAX_OUT = 0.5;
   public static final double  DRIVE_ROTATION_PID_MIN_OUT = -0.5;
 
-  public static final int    INTAKE_PIVOT_MOTOR_ID = 9;
-  public static final int    INTAKE_PIVOT_MOTOR_SLAVE_ID = 8;
+  public static final int    INTAKE_PIVOT_MOTOR_ID = 8;
+  public static final int    INTAKE_PIVOT_MOTOR_SLAVE_ID = 9;
   public static final double INTAKE_PIVOT_MOTOR_RATIO = 1 / 2;
   public static final double INTAKE_PIVOT_PID_P = 0.0;
   public static final double INTAKE_PIVOT_PID_I = 0.0;
@@ -72,7 +72,7 @@ public final class Constants {
   public static final double SHOOTER_PIVOT_PID_TOLERANCE = 0;
   public static final double SHOOTER_PIVOT_PID_MAX_OUT = 1;
   public static final double SHOOTER_PIVOT_PID_MIN_OUT = INTAKE_PIVOT_PID_MAX_OUT * -1;
-  public static final double SHOOTER_PIVOT_DEADBAND = 0.09;
+  public static final double SHOOTER_PIVOT_DEADBAND = 0.1;
   public static final double SHOOTER_SHOOT_MOTOR_ACCELERATION = 1;
   public static final double SHOOTER_FEED_IN_SPEED = 1;
   public static final double SHOOTER_FEED_OUT_SPEEED = -0.4;
