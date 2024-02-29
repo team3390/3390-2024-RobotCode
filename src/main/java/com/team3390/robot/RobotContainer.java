@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
@@ -38,12 +37,6 @@ public class RobotContainer {
   private final Joystick rightStick = new Joystick(Constants.JOYSTICK_RIGHT_PORT);
   private final Joystick gamepad = new Joystick(Constants.JOYSTICK_GAMEPAD_PORT);
 
-  private final Command activateTargetLock = new InstantCommand(() -> {
-    shooter.setTargetLock(true);
-  });
-  private final Command deactivateTargetLock = new InstantCommand(() -> {
-    shooter.setTargetLock(false);
-  });
   private final Command manualShootCommand = new ManualShoot(shooter);
   private final Command manualFeedInCommand = new ManualFeedIn(shooter, intake);
   private final Command manualFeedOutCommand = new ManualFeedOut(shooter);
@@ -74,8 +67,6 @@ public class RobotContainer {
         () -> leftStick.getY()
     ));
 
-    new Trigger(() -> gamepad.getRawButton(1)).whileTrue(activateTargetLock);
-    new Trigger(() -> gamepad.getRawButton(3)).whileTrue(deactivateTargetLock);
     new Trigger(() -> gamepad.getRawButton(2)).whileTrue(new ElevatorDown(elevator));
     new Trigger(() -> gamepad.getRawButton(4)).whileTrue(new ElevatorUp(elevator));
     new Trigger(() -> gamepad.getRawButton(8)).whileTrue(manualShootCommand);

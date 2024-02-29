@@ -1,8 +1,7 @@
 package com.team3390.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.team3390.lib.drivers.LazyTalonSRX;
-import com.team3390.lib.drivers.TalonSRXCreator;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
 import com.team3390.robot.Constants;
 
@@ -14,7 +13,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private static ElevatorSubsystem instance;
 
-  private final LazyTalonSRX master, slave;
+  private final WPI_TalonSRX master, slave;
   private final Configuration talonConfig = new Configuration();
   private final boolean isBreakMode = false;
 
@@ -30,8 +29,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     talonConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
     talonConfig.INVERTED = true;
-    master = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_MASTER_ID, talonConfig);
-    slave = TalonSRXCreator.createTalon(Constants.ELEVATOR_MOTOR_SLAVE_ID, talonConfig);
+    master = new WPI_TalonSRX(Constants.ELEVATOR_MOTOR_MASTER_ID);
+    slave = new WPI_TalonSRX(Constants.ELEVATOR_MOTOR_SLAVE_ID);
 
     brake = new Solenoid(PneumaticsModuleType.CTREPCM, 4);
   }

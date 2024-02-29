@@ -54,7 +54,7 @@ public class MecanumDrive extends Command {
       y = y/2;
       rot = rot/2;
     }
-    
+
     drivetrain.driveCartesian(x, y, rot, fod);
   }
 

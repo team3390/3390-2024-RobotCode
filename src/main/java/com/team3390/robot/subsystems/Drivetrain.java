@@ -1,9 +1,8 @@
 package com.team3390.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-import com.team3390.lib.drivers.LazyTalonSRX;
-import com.team3390.lib.drivers.TalonSRXCreator;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
 import com.team3390.robot.Constants;
 
@@ -19,7 +18,7 @@ public class Drivetrain extends SubsystemBase {
   private boolean isBreakMode = false;
 
   private final Configuration talonConfiguration = new Configuration();
-  private final LazyTalonSRX frontLeft, frontRight, rearLeft, rearRight;
+  private final WPI_TalonSRX frontLeft, frontRight, rearLeft, rearRight;
   private final MecanumDrive driveController;
 
   private final AHRS navX = new AHRS(Constants.SENSOR_NAVX_PORT);
@@ -33,10 +32,10 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     talonConfiguration.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
-    frontLeft = TalonSRXCreator.createTalon(Constants.DRIVE_FRONT_LEFT_ID, talonConfiguration);
-    frontRight = TalonSRXCreator.createTalon(Constants.DRIVE_FRONT_RIGHT_ID, talonConfiguration);
-    rearLeft = TalonSRXCreator.createTalon(Constants.DRIVE_REAR_LEFT_ID, talonConfiguration);
-    rearRight = TalonSRXCreator.createTalon(Constants.DRIVE_REAR_RIGHT_ID, talonConfiguration);
+    frontLeft = new WPI_TalonSRX(Constants.DRIVE_FRONT_LEFT_ID);
+    frontRight = new WPI_TalonSRX(Constants.DRIVE_FRONT_RIGHT_ID);
+    rearLeft = new WPI_TalonSRX(Constants.DRIVE_REAR_LEFT_ID);
+    rearRight = new WPI_TalonSRX(Constants.DRIVE_REAR_RIGHT_ID);
 
     frontLeft.setInverted(Constants.DRIVE_FRONT_LEFT_INVERTED);
     frontRight.setInverted(Constants.DRIVE_FRONT_RIGHT_INVERTED);
@@ -45,6 +44,7 @@ public class Drivetrain extends SubsystemBase {
 
     // MotorController frontLeftMotor, MotorController rearLeftMotor, MotorController frontRightMotor, MotorController rearRightMotor
     driveController = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
+    driveController.setSafetyEnabled(false);
   }
 
   @Override
@@ -91,6 +91,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void driveCartesian(double xSpeed, double ySpeed, double zRotation, boolean fod) {
     if (xSpeed + ySpeed + zRotation != 0) {
+      System.out.println("Drive Execute");
       if (fod) {
         driveController.driveCartesian(xSpeed, ySpeed, zRotation, getHeading2d());
       } else {

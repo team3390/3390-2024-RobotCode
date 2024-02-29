@@ -1,42 +1,22 @@
 package com.team3390.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.team3390.lib.drivers.LazyTalonSRX;
-import com.team3390.lib.drivers.TalonSRXCreator;
 import com.team3390.lib.drivers.TalonSRXCreator.Configuration;
-import com.team3390.lib.math.PID;
 import com.team3390.robot.Constants;
-import com.team3390.robot.utility.CompetitionShuffleboard;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
 
   private static IntakeSubsystem instance;
-  private final CompetitionShuffleboard shuffleboard = CompetitionShuffleboard.getInstance();
 
   private final Configuration motorConfig = new Configuration();
-  private final LazyTalonSRX pivotMotor, pivotMotorSlave;
+  private final WPI_TalonSRX pivotMotor, pivotMotorSlave;
   private final CANSparkMax intakeMotor1, intakeMotor2;
-  private final boolean isBreakMode = true;
-
-  private final DigitalInput intakeSwitch;
-  private boolean hasNote = false;
-  private boolean last;
-  private int count = -1;
-
-  private final PID pivotPID = new PID(
-    0.02,
-    0.00,
-    0.00075,
-    0.5,
-    Constants.INTAKE_PIVOT_PID_MAX_OUT,
-    Constants.INTAKE_PIVOT_PID_MIN_OUT
-  );
-  private boolean isPIDActive = true;
+  private final boolean isBreakMode = false;
 
   public synchronized static IntakeSubsystem getInstance() {
     if (instance == null) {
@@ -47,53 +27,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
     motorConfig.NEUTRAL_MODE = isBreakMode ? NeutralMode.Brake : NeutralMode.Coast;
-    pivotMotor = TalonSRXCreator.createTalon(Constants.INTAKE_PIVOT_MOTOR_ID, motorConfig);
-    pivotMotorSlave = TalonSRXCreator.createTalon(Constants.INTAKE_PIVOT_MOTOR_SLAVE_ID, motorConfig);
+    pivotMotor = new WPI_TalonSRX(Constants.INTAKE_PIVOT_MOTOR_ID);
+    pivotMotorSlave = new WPI_TalonSRX(Constants.INTAKE_PIVOT_MOTOR_SLAVE_ID);
     intakeMotor1 = new CANSparkMax(1, MotorType.kBrushless);
     intakeMotor2 = new CANSparkMax(2, MotorType.kBrushless);
-
-    intakeSwitch = new DigitalInput(Constants.INTAKE_SWITCH_ID);
-
-    pivotPID.setSetpoint(0);
   }
 
   @Override
-  public void periodic() {
-    shuffleboard.hasNoteEntry.setBoolean(hasNote);
-    
-    if (isPIDActive) {
-      double pivotMotorSpeed = pivotPID.output(pivotPID.calculate(getIntakeAngle()));
-      pivotMotor.set(pivotMotorSpeed);
-    }
-
-    updateSwitch();
-  }
-
-  private void updateSwitch() {
-    if (intakeSwitch.get() == false && last == true) {
-      count++;
-    }
-    last = intakeSwitch.get();
-    hasNote = (count % 2) == 1;
-  }
-
-  public boolean hasNote() {
-    return hasNote;
-  }
-
-  public void setIntakeAngle(Constants.INTAKE_POSITIONS pos) {
-    pivotPID.setSetpoint(pos.angle);
-  }
-
-  public boolean isIntakeAtSetpoint() {
-    return pivotPID.atSetpoint();
-  }
-
-  public void resetPivotEncoder() {}
-
-  public double getIntakeAngle() {
-    return 0.0;
-  }
+  public void periodic() {}
 
   public void setPivotMotor(double speed) {
     if (speed != 0) {
@@ -106,15 +47,6 @@ public class IntakeSubsystem extends SubsystemBase {
     pivotMotor.stopMotor();
     pivotMotorSlave.stopMotor();
   }
-
-  public void setIsPivotPIDActive(boolean isActive) {
-    isPIDActive = isActive;
-  }
-
-  public boolean getIsPivotPIDActive() {
-    return isPIDActive;
-  }
-
   public void setIntakeMotor(double speed) {
     if (speed != 0) {
       intakeMotor1.set(speed);
