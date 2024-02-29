@@ -113,7 +113,7 @@ public class RobotContainer {
         break;
 
       default:
-        selectedAuto = new Any_Taxi(drivetrain, shooter);;
+        selectedAuto = new Any_Taxi(drivetrain, shooter);
     }    
     return selectedAuto;
   }
